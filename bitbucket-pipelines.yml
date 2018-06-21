@@ -1,0 +1,30 @@
+# Continues Integration Configuration
+# -----
+
+image: php:7.2.1
+
+pipelines:
+  default:
+    - step:
+        name: Build dependencies
+        caches:
+          - composer
+        script:
+          - apt-get update && apt-get install -qy curl unzip git
+          - curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+          - composer -V
+          - php -v
+          - composer install --no-progress --no-suggest --no-interaction --no-plugins --prefer-dist
+        artifacts:
+          - vendor/**
+          - composer.lock
+    - step:
+        name: Unit tests
+        script:
+          - apt-get update && apt-get install -qy unzip
+          - docker-php-ext-install mbstring
+          - vendor/bin/phpunit --colors=never --log-junit ./test-reports/junit.xml
+    - step:
+        name: Code style
+        script:
+          - vendor/bin/php-cs-fixer fix --config=.php_cs -v --dry-run --using-cache=no
