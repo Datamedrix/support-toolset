@@ -1,6 +1,6 @@
 {
     "name": "dmx/support-toolset",
-    "description": "Collection of support classes and traits.",
+    "description": "A collection of support classes and traits.",
     "keywords": ["datamedrix", "support", "toolset", "tools", "collection"],
     "license": "MIT",
     "type": "library",

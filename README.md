@@ -1,4 +1,6 @@
-# Support Toolset
+# Support Toolset [![Build Status](https://travis-ci.org/Datamedrix/support-toolset.svg?branch=master)](https://travis-ci.org/Datamedrix/support-toolset)
+
+A collection of support classes and traits.
 
 ## Installation
 
