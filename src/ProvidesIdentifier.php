@@ -12,21 +12,20 @@
 
 declare(strict_types=1);
 
-namespace DMX\Support\Tests\Mocks;
+namespace DMX\Support;
 
-use DMX\Support\ProvidesIdentifier;
-
-class ProvidesIdentifierTraitMock
+trait ProvidesIdentifier
 {
-    use ProvidesIdentifier;
+    /**
+     * @var string
+     */
+    protected $identifier;
 
     /**
-     * ProvidesIdentifierTraitMock constructor.
-     *
-     * @param string $identifier
+     * @return string
      */
-    public function __construct(string $identifier)
+    public function identifier(): string
     {
-        $this->identifier = $identifier;
+        return $this->identifier;
     }
 }

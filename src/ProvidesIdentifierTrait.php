@@ -14,6 +14,11 @@ declare(strict_types=1);
 
 namespace DMX\Support;
 
+/**
+ * Trait ProvidesIdentifierTrait.
+ *
+ * @deprecated Please use the DMX\Support\ProvidesIdentifier trait instead.
+ */
 trait ProvidesIdentifierTrait
 {
     /**
