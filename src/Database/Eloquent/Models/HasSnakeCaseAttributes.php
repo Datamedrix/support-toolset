@@ -31,7 +31,7 @@ trait HasSnakeCaseAttributes
     public function getAttribute($key)
     {
         // performance: check if a eager loaded attribute exists with the given key, if yes use them
-        if (array_key_exists($key, $this->relations ?? [])) {
+        if (array_key_exists($key, $this->relations ?? []) || method_exists($this, $key)) {
             return parent::getAttribute($key);
         }
 

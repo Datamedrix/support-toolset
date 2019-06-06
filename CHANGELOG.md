@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file.
 
+# 1.1.1 (2019-06-06)
+
+### Fixes
+
+* **traits:** Check for an potentially existing method defined within the model before snake case the designated attribute (`getAttribute()`).
+
 <a name="1.1.0"></a>
 # 1.1.0 (2018-09-10)
 
