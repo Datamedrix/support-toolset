@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace DMX\Support\Database\Eloquent\Models;
 
+use Illuminate\Support\Str;
+
 /**
  * Trait HasSnakeCaseAttributes.
  *
@@ -36,7 +38,7 @@ trait HasSnakeCaseAttributes
         }
 
         // otherwise force key to snake case
-        return parent::getAttribute(snake_case($key));
+        return parent::getAttribute(Str::snake($key));
     }
 
     /**
@@ -49,6 +51,6 @@ trait HasSnakeCaseAttributes
      */
     public function setAttribute($key, $value)
     {
-        return parent::setAttribute(snake_case($key), $value);
+        return parent::setAttribute(Str::snake($key), $value);
     }
 }
