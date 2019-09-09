@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file.
 
+# 1.1.2 (2019-09-09)
+
+* **\*:** Dependencies updated to support laravel 6.0.
+
 # 1.1.1 (2019-06-06)
 
 ### Fixes
