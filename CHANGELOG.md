@@ -2,7 +2,15 @@
 
 All notable changes to this project will be documented in this file.
 
+# 1.1.3 (2019-09-09)
+
+### Fixes 
+
+* **\*:** Remove support for laravel 6.0, cause of an deprecated function issue.
+
 # 1.1.2 (2019-09-09)
+
+### Chore
 
 * **\*:** Dependencies updated to support laravel 6.0.
 
