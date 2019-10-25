@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [2.1.1](https://github.com/Datamedrix/support-toolset/compare/v2.1.0...v2.1.1) (2019-10-25)
+
+### Bug Fixes
+
+* **database:** Remove misplaced migration and blueprint classes. ([05d6d64](https://github.com/Datamedrix/support-toolset/commit/05d6d64))
+
 # [2.1.0](https://github.com/Datamedrix/support-toolset/compare/v2.0.0...v2.1.0) (2019-10-25)
 
 ### Features
