@@ -7,12 +7,13 @@
     "version": "2.0.0",
     "require": {
         "php": "^7.2.0",
-        "illuminate/support": "^6.0.0"
+        "illuminate/contracts": "~5.8.0|^6.0.0",
+        "illuminate/support": "~5.8.0|^6.0.0",
+        "illuminate/database": "~5.8.0|^6.0.0"
     },
     "require-dev": {
         "ext-mbstring": "*",
         "friendsofphp/php-cs-fixer": "^2.15",
-        "mockery/mockery": "^1.2",
         "phpunit/phpunit": "^8.3"
     },
     "autoload": {
