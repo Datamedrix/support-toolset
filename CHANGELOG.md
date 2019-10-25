@@ -1,6 +1,12 @@
 # Change Log
 
-All notable changes to this project will be documented in this file.
+All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+# [2.1.0](https://github.com/Datamedrix/support-toolset/compare/v2.0.0...v2.1.0) (2019-10-25)
+
+### Features
+
+* **database:** Add lightly adopted (Laravel)migration base class and (Laravel)blueprint. ([f57443e](https://github.com/Datamedrix/support-toolset/commit/f57443e))
 
 # 2.0.0 (2019-09-09)
 
