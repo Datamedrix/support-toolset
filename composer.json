@@ -1,21 +1,14 @@
 {
     "name": "dmx/support-toolset",
     "description": "A collection of support classes and traits.",
-    "keywords": [
-        "datamedrix",
-        "support",
-        "toolset",
-        "tools",
-        "collection"
-    ],
+    "keywords": ["datamedrix", "support", "toolset", "tools", "collection"],
     "license": "MIT",
     "type": "library",
-    "version": "2.1.0",
+    "version": "2.0.0",
     "require": {
         "php": "^7.2.0",
         "illuminate/contracts": "~5.8.0|^6.0.0",
-        "illuminate/support": "~5.8.0|^6.0.0",
-        "illuminate/database": "~5.8.0|^6.0.0"
+        "illuminate/support": "~5.8.0|^6.0.0"
     },
     "require-dev": {
         "ext-mbstring": "*",
