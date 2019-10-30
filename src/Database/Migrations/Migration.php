@@ -42,10 +42,12 @@ class Migration extends BaseMigration
      */
     public function __construct(DatabaseManager $databaseManager = null)
     {
-        if ($databaseManager === null && function_exists('app')) {
-            $databaseManager = app()->make(DatabaseManager::class, []);
-        } else {
-            throw new \InvalidArgumentException('This migration could not be created, because a instance of ' . DatabaseManager::class . ' is missing!');
+        if ($databaseManager === null) {
+            if (function_exists('app')) {
+                $databaseManager = app()->make(DatabaseManager::class, []);
+            } else {
+                throw new \InvalidArgumentException('This migration could not be created, because a instance of ' . DatabaseManager::class . ' is missing!');
+            }
         }
 
         $this->dbm = $databaseManager;
