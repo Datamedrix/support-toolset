@@ -2,14 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-# [2.2.0](https://github.com/Datamedrix/support-toolset/compare/v2.1.1...v2.2.0) (2019-10-30)
+## [2.2.1](https://github.com/Datamedrix/support-toolset/compare/v2.2.0...v2.2.1) (2019-10-30)
 
+### Bug Fixes
+
+* **database/migrations:** Throw the exception correctly only if no database manager is set and no Laravel helper functions are available. ([74010d5](https://github.com/Datamedrix/support-toolset/commit/74010d5))
+
+# [2.2.0](https://github.com/Datamedrix/support-toolset/compare/v2.1.1...v2.2.0) (2019-10-30)
 
 ### Features
 
 * **database:** Add lightly adopted Laravel based migration and blueprint classes. ([83cb5f1](https://github.com/Datamedrix/support-toolset/commit/83cb5f1))
-
-
 
 ## [2.1.1](https://github.com/Datamedrix/support-toolset/compare/v2.1.0...v2.1.1) (2019-10-25)
 
