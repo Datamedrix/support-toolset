@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [2.3.0](https://github.com/Datamedrix/support-toolset/compare/v2.2.1...v2.3.0) (2019-10-31)
+
+### Features
+
+* **database/eloquent:** Add trait to add a optional schema name property to a model. ([9d60f15](https://github.com/Datamedrix/support-toolset/commit/9d60f15))
+
 ## [2.2.1](https://github.com/Datamedrix/support-toolset/compare/v2.2.0...v2.2.1) (2019-10-30)
 
 ### Bug Fixes
