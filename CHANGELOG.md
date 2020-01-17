@@ -2,6 +2,10 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.0.0](https://github.com/Datamedrix/support-toolset/compare/v2.3.0...v3.0.0) (2020-01-17)
+
+* **\*:** Move the package to PHP 7.4.
+
 # [2.3.0](https://github.com/Datamedrix/support-toolset/compare/v2.2.1...v2.3.0) (2019-10-31)
 
 ### Features
@@ -40,7 +44,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 # 1.1.3 (2019-09-09)
 
-### Fixes 
+### Fixes
 
 * **\*:** Remove support for laravel 6.0, cause of an deprecated function issue.
 
@@ -63,7 +67,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **traits:** add HasSnakeCaseAttributes to use within Eloquent models
     * overloads getAttribute() and setAttribute() to use snake case attribute names
-        * Example: 
+        * Example:
             * **Field in the database:** "my_awesome_field"
             * **Use on model:** $myModel->myAwesomeField
 
