@@ -22,8 +22,6 @@ class ProvidesIdentifierTraitMock
 
     /**
      * ProvidesIdentifierTraitMock constructor.
-     *
-     * @param string $identifier
      */
     public function __construct(string $identifier)
     {

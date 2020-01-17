@@ -35,8 +35,6 @@ class Blueprint extends BaseBlueprint
      * Add an identifier string (= VARCHAR(64) with charset 'ascii') to the table.
      *
      * @param string $column Name of the designated column
-     *
-     * @return Fluent
      */
     public function stringIdentifier(string $column): Fluent
     {

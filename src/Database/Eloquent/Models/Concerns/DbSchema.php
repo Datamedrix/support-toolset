@@ -14,8 +14,6 @@ declare(strict_types=1);
 
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
-use Illuminate\Database\Eloquent\Model;
-
 trait DbSchema
 {
     /**
@@ -23,11 +21,8 @@ trait DbSchema
      *
      * @var string|null
      */
-    protected $schema = null;
+    protected ?string $schema = null;
 
-    /**
-     * @return string|null
-     */
     public function getSchemaName(): ?string
     {
         return !empty($this->schema) ? (string) $this->schema : null;
@@ -47,51 +42,31 @@ trait DbSchema
         return $tableName;
     }
 
-    /**
-     * @return string
-     */
     protected function getDatabaseDriverName(): string
     {
         return $this->getConnection()->getDriverName();
     }
 
-    /**
-     * @param string $driverName
-     *
-     * @return bool
-     */
     protected function usingDriver(string $driverName): bool
     {
         return strtolower($this->getDatabaseDriverName()) === strtolower($driverName);
     }
 
-    /**
-     * @return bool
-     */
     protected function usingMySQL(): bool
     {
         return $this->usingDriver('mysql');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingPostgreSQL(): bool
     {
         return $this->usingDriver('pgsql');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingMSSQL(): bool
     {
         return $this->usingDriver('sqlsrv');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingSqlLite(): bool
     {
         return $this->usingDriver('sqlite');

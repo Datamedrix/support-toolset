@@ -16,6 +16,7 @@ namespace DMX\Support\Database\Migrations;
 
 use Illuminate\Database\DatabaseManager;
 use DMX\Support\Database\Schema\Blueprint;
+use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 
 class Migration extends BaseMigration
@@ -23,17 +24,17 @@ class Migration extends BaseMigration
     /**
      * @var DatabaseManager
      */
-    protected $dbm;
+    protected DatabaseManager $dbm;
 
     /**
-     * @var \Illuminate\Database\Schema\Builder
+     * @var SchemaBuilder
      */
-    protected $schema;
+    protected SchemaBuilder $schema;
 
     /**
      * @var string|null
      */
-    protected $baseFilePath = null;
+    protected ?string $baseFilePath = null;
 
     /**
      * Migration constructor.
@@ -66,51 +67,31 @@ class Migration extends BaseMigration
         }
     }
 
-    /**
-     * @return string
-     */
     protected function getDriverName(): string
     {
         return $this->schema->getConnection()->getDriverName();
     }
 
-    /**
-     * @param string $driverName
-     *
-     * @return bool
-     */
     protected function usingDriver(string $driverName): bool
     {
         return strtolower($this->getDriverName()) === strtolower($driverName);
     }
 
-    /**
-     * @return bool
-     */
     protected function usingMySQL(): bool
     {
         return $this->usingDriver('mysql');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingPostgreSQL(): bool
     {
         return $this->usingDriver('pgsql');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingMSSQL(): bool
     {
         return $this->usingDriver('sqlsrv');
     }
 
-    /**
-     * @return bool
-     */
     protected function usingSqlLite(): bool
     {
         return $this->usingDriver('sqlite');

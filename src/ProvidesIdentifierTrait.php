@@ -24,11 +24,8 @@ trait ProvidesIdentifierTrait
     /**
      * @var string
      */
-    protected $identifier;
+    protected string $identifier;
 
-    /**
-     * @return string
-     */
     public function identifier(): string
     {
         return $this->identifier;
