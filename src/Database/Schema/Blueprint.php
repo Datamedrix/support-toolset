@@ -32,9 +32,72 @@ class Blueprint extends BaseBlueprint
     }
 
     /**
+     * Add nullable creation and update references to the designated users table to the table.
+     *
+     * @param string $referencedTo
+     */
+    public function userAudit(string $referencedTo = 'users')
+    {
+        $this->unsignedBigInteger('created_by')->nullable()->default(null);
+        $this->timestamp('updated_by')->nullable()->default(null);
+
+        if (!empty($referencedTo)) {
+            $referencedTo = trim($referencedTo);
+
+            $this
+                ->foreign('created_by')
+                ->references('id')
+                ->on($referencedTo)
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $this
+                ->foreign('updated_by')
+                ->references('id')
+                ->on($referencedTo)
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        }
+    }
+
+    /**
+     * Add nullable creation and update references to the designated users table and timestamps to the table.
+     *
+     * @param string $referencedTo
+     * @param int    $precision
+     */
+    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0)
+    {
+        $this->timestamp('created_at', $precision)->default(new Expression('NOW()'));
+        $this->unsignedBigInteger('created_by')->nullable()->default(null);
+        $this->timestamp('updated_at', $precision)->nullable();
+        $this->unsignedBigInteger('updated_by')->nullable()->default(null);
+
+        if (!empty($referencedTo)) {
+            $referencedTo = trim($referencedTo);
+
+            $this
+                ->foreign('created_by')
+                ->references('id')
+                ->on($referencedTo)
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+
+            $this
+                ->foreign('updated_by')
+                ->references('id')
+                ->on($referencedTo)
+                ->onUpdate('cascade')
+                ->onDelete('restrict');
+        }
+    }
+
+    /**
      * Add an identifier string (= VARCHAR(64) with charset 'ascii') to the table.
      *
      * @param string $column Name of the designated column
+     *
+     * @return Fluent
      */
     public function stringIdentifier(string $column): Fluent
     {
