@@ -21,6 +21,9 @@ trait ProvidesIdentifier
      */
     protected string $identifier;
 
+    /**
+     * @return string
+     */
     public function identifier(): string
     {
         return $this->identifier;

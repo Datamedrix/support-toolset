@@ -67,31 +67,51 @@ class Migration extends BaseMigration
         }
     }
 
+    /**
+     * @return string
+     */
     protected function getDriverName(): string
     {
         return $this->schema->getConnection()->getDriverName();
     }
 
+    /**
+     * @param string $driverName
+     *
+     * @return bool
+     */
     protected function usingDriver(string $driverName): bool
     {
         return strtolower($this->getDriverName()) === strtolower($driverName);
     }
 
+    /**
+     * @return bool
+     */
     protected function usingMySQL(): bool
     {
         return $this->usingDriver('mysql');
     }
 
+    /**
+     * @return bool
+     */
     protected function usingPostgreSQL(): bool
     {
         return $this->usingDriver('pgsql');
     }
 
+    /**
+     * @return bool
+     */
     protected function usingMSSQL(): bool
     {
         return $this->usingDriver('sqlsrv');
     }
 
+    /**
+     * @return bool
+     */
     protected function usingSqlLite(): bool
     {
         return $this->usingDriver('sqlite');
