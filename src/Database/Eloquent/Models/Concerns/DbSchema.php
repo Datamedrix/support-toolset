@@ -17,6 +17,13 @@ namespace DMX\Support\Database\Eloquent\Models\Concerns;
 trait DbSchema
 {
     /**
+     * Delimiter used to concat the database schema- and the table- name if the database engine does not support schemas.
+     *
+     * @var string
+     */
+    protected string $schemaTableConcatDelimiter = '__';
+
+    /**
      * The database schema name associated with the model.
      *
      * @var string|null
@@ -38,8 +45,12 @@ trait DbSchema
     {
         $tableName = parent::getTable();
         $schema = $this->getSchemaName();
-        if (!empty($schema) && $this->usingPostgreSQL()) {
-            return $schema . '.' . $tableName;
+        if (!empty($schema)) {
+            if ($this->usingPostgreSQL()) {
+                return $schema . '.' . $tableName;
+            }
+
+            return $schema . $this->schemaTableConcatDelimiter . $tableName;
         }
 
         return $tableName;
