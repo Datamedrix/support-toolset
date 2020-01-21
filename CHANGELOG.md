@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.2.0](https://github.com/Datamedrix/support-toolset/compare/v3.1.0...v3.2.0) (2020-01-21)
+
+### Features
+
+* **eloquent:** Add optional schema name to table name if the database engine does not support db-schemas. ([45d1581](https://github.com/Datamedrix/support-toolset/commit/45d1581))
+
 # [3.1.0](https://github.com/Datamedrix/support-toolset/compare/v3.0.0...v3.1.0) (2020-01-17)
 
 ### Features
