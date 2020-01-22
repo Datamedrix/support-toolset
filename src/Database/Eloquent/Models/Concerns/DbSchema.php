@@ -47,7 +47,17 @@ trait DbSchema
         $schema = $this->getSchemaName();
         if (!empty($schema)) {
             if ($this->usingPostgreSQL()) {
+                if (strpos($tableName, '.') !== false) {
+                    // if the a schema is already added to the table name, do not add them twice!
+                    return $tableName;
+                }
+
                 return $schema . '.' . $tableName;
+            }
+
+            if (strpos($tableName, $schema . $this->schemaTableConcatDelimiter) !== false) {
+                // if the a schema name is already added to the table name, do not add them twice!
+                return $tableName;
             }
 
             return $schema . $this->schemaTableConcatDelimiter . $tableName;
