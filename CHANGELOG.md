@@ -2,14 +2,18 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+# [3.3.0](https://github.com/Datamedrix/support-toolset/compare/v3.2.1...v3.3.0) (2020-10-29)
+
+### Features
+
+* Add support for laravel framework 7.x and 8.x. ([2d28091](https://github.com/Datamedrix/support-toolset/commit/2d28091))
+
 ## [3.2.1](https://github.com/Datamedrix/support-toolset/compare/v3.2.0...v3.2.1) (2020-01-22)
 
 
 ### Bug Fixes
 
 * **model/concerns/DbSchema:** Do not add the db schema twice to the table name! ([3471869](https://github.com/Datamedrix/support-toolset/commit/3471869))
-
-
 
 # [3.2.0](https://github.com/Datamedrix/support-toolset/compare/v3.1.0...v3.2.0) (2020-01-21)
 

@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "type": "library",
-    "version": "3.2.1",
+    "version": "3.3.0",
     "require": {
         "php": "^7.4.0",
         "illuminate/contracts": "^6.0.0|^7.0.0|^8.0.0",
