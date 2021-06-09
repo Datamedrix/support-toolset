@@ -1,6 +1,12 @@
-# Change Log
+# Changelog
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
+
+## [3.4.0](https://github.com/Datamedrix/support-toolset/compare/v3.3.0...v3.4.0) (2021-06-09)
+
+### Features
+
+* **eloquent/models:** Enhance the HasSnakeCaseAttributes trait. ([f0b8080](https://github.com/Datamedrix/support-toolset/commit/f0b8080b4f9d227be72cd714bfb647fab9c9ae2b))
 
 # [3.3.0](https://github.com/Datamedrix/support-toolset/compare/v3.2.1...v3.3.0) (2020-10-29)
 
