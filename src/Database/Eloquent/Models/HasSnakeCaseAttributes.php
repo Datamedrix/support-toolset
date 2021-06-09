@@ -24,7 +24,7 @@ use Illuminate\Support\Str;
 trait HasSnakeCaseAttributes
 {
     /**
-     * Get an attribute from the model.
+     * Get an attribute from the model incl. snake case notation support.
      *
      * @param string $key
      *
@@ -32,8 +32,17 @@ trait HasSnakeCaseAttributes
      */
     public function getAttribute($key)
     {
+        if (empty($key)) {
+            return null;
+        }
+
         // performance: check if a eager loaded attribute exists with the given key, if yes use them
         if (array_key_exists($key, $this->relations ?? []) || method_exists($this, $key)) {
+            return parent::getAttribute($key);
+        }
+
+        // check if the given key is set within the attributes or casts
+        if (array_key_exists($key, $this->attributes ?? []) || array_key_exists($key, $this->casts ?? [])) {
             return parent::getAttribute($key);
         }
 
@@ -42,7 +51,7 @@ trait HasSnakeCaseAttributes
     }
 
     /**
-     * Set a given attribute on the model.
+     * Set a given attribute on the model incl. snake case notation support.
      *
      * @param string $key
      * @param mixed  $value
@@ -51,6 +60,20 @@ trait HasSnakeCaseAttributes
      */
     public function setAttribute($key, $value)
     {
-        return parent::setAttribute(Str::snake($key), $value);
+        // check if there is a non snake_case attribute and uses it instead
+        if (array_key_exists($key, $this->attributes ?? [])) {
+            return parent::setAttribute(
+                $key,
+                $this->hasCast($key) ? $this->castAttribute($key, $value) : $value
+            );
+        }
+
+        // otherwise force key to snake case
+        $snakeKey = Str::snake($key);
+
+        return parent::setAttribute(
+            $snakeKey,
+            $this->hasCast($snakeKey) ? $this->castAttribute($snakeKey, $value) : $value
+        );
     }
 }
