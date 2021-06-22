@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.0.0](https://github.com/Datamedrix/support-toolset/compare/v3.4.0...v4.0.0) (2021-06-22)
+
+### Features
+
+* **eloquent:** Add 2 new traits. ([0e5a5b6](https://github.com/Datamedrix/support-toolset/commit/0e5a5b6d71692e6f14d40383676f4bd0e6783ccf))
+
+### BREAKING CHANGES
+
+* **eloquent:** Move trait HasSnakeCaseAttributes to \DMX\Support\Database\Eloquent\Models\Concerns. ([e3ce4f74](https://github.com/Datamedrix/support-toolset/commit/e3ce4f749cf9cbc19c6ab3c780a12f5b1e3913a4))
+
+
 ## [3.4.0](https://github.com/Datamedrix/support-toolset/compare/v3.3.0...v3.4.0) (2021-06-09)
 
 ### Features
