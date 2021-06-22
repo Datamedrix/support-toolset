@@ -12,7 +12,7 @@
 
 declare(strict_types=1);
 
-namespace DMX\Support\Database\Eloquent\Models;
+namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
 use Illuminate\Support\Str;
 
