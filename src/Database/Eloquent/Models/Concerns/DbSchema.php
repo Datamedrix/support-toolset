@@ -35,7 +35,7 @@ trait DbSchema
      */
     public function getSchemaName(): ?string
     {
-        return !empty($this->schema) ? (string) $this->schema : null;
+        return !empty($this->schema) ? trim((string) $this->schema) : null;
     }
 
     /**
@@ -46,7 +46,7 @@ trait DbSchema
         $tableName = parent::getTable();
         $schema = $this->getSchemaName();
         if (!empty($schema)) {
-            if ($this->usingPostgreSQL()) {
+            if ($this->currentDriverSupportsSchemas()) {
                 if (strpos($tableName, '.') !== false) {
                     // if the a schema is already added to the table name, do not add them twice!
                     return $tableName;
@@ -114,5 +114,13 @@ trait DbSchema
     protected function usingSqlLite(): bool
     {
         return $this->usingDriver('sqlite');
+    }
+
+    /**
+     * @return bool
+     */
+    protected function currentDriverSupportsSchemas(): bool
+    {
+        return $this->usingPostgreSQL() || $this->usingMSSQL();
     }
 }

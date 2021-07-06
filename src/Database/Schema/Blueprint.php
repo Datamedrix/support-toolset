@@ -15,7 +15,6 @@ declare(strict_types=1);
 namespace DMX\Support\Database\Schema;
 
 use Illuminate\Support\Fluent;
-use Illuminate\Database\Query\Expression;
 use Illuminate\Database\Schema\Blueprint as BaseBlueprint;
 
 class Blueprint extends BaseBlueprint
