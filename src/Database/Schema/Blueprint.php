@@ -27,8 +27,8 @@ class Blueprint extends BaseBlueprint
      */
     public function timestamps($precision = 0)
     {
-        $this->timestamp('created_at', $precision)->default(new Expression('NOW()'));
-        $this->timestamp('updated_at', $precision)->nullable();
+        $this->timestamp('created_at', $precision)->useCurrent();
+        $this->timestamp('updated_at', $precision)->nullable()->useCurrentOnUpdate();
     }
 
     /**
@@ -38,8 +38,8 @@ class Blueprint extends BaseBlueprint
      */
     public function userAudit(string $referencedTo = 'users')
     {
-        $this->unsignedBigInteger('created_by')->nullable()->default(null);
-        $this->timestamp('updated_by')->nullable()->default(null);
+        $this->foreignId('created_by')->nullable();
+        $this->foreignId('updated_by')->nullable();
 
         if (!empty($referencedTo)) {
             $referencedTo = trim($referencedTo);
@@ -68,10 +68,10 @@ class Blueprint extends BaseBlueprint
      */
     public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0)
     {
-        $this->timestamp('created_at', $precision)->default(new Expression('NOW()'));
-        $this->unsignedBigInteger('created_by')->nullable()->default(null);
-        $this->timestamp('updated_at', $precision)->nullable();
-        $this->unsignedBigInteger('updated_by')->nullable()->default(null);
+        $this->timestamp('created_at', $precision)->useCurrent();
+        $this->foreignId('created_by')->nullable();
+        $this->timestamp('updated_at', $precision)->nullable()->useCurrentOnUpdate();
+        $this->foreignId('updated_by')->nullable();
 
         if (!empty($referencedTo)) {
             $referencedTo = trim($referencedTo);
