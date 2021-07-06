@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.0.1](https://github.com/Datamedrix/support-toolset/compare/v4.0.0...v4.0.1) (2021-07-06)
+
+### Bug Fixes
+
+* **database/schema:** Use Laravel's built in methods to set the current timestamp instead of using a expression to make them more compatible to other database systems. ([487c5d2](https://github.com/Datamedrix/support-toolset/commit/487c5d274863759d17424cc6792068554990f73e))
+
 ## [4.0.0](https://github.com/Datamedrix/support-toolset/compare/v3.4.0...v4.0.0) (2021-06-22)
 
 ### Features

@@ -10,9 +10,9 @@
     ],
     "license": "MIT",
     "type": "library",
-    "version": "4.0.0",
+    "version": "4.0.1",
     "require": {
-        "php": ">=7.4.0",
+        "php": "^7.4.0|^8.0.0",
         "illuminate/contracts": "^6.0.0|^7.0.0|^8.0.0",
         "illuminate/database": "^6.0.0|^7.0.0|^8.0.0",
         "illuminate/support": "^6.0.0|^7.0.0|^8.0.0",
