@@ -16,10 +16,11 @@ namespace DMX\Support\Database\Migrations;
 
 use Illuminate\Database\DatabaseManager;
 use DMX\Support\Database\Schema\Blueprint;
+use DMX\Support\Database\ConnectionManager;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
 
-class Migration extends BaseMigration
+abstract class Migration extends BaseMigration
 {
     /**
      * @var DatabaseManager
@@ -37,11 +38,16 @@ class Migration extends BaseMigration
     protected ?string $baseFilePath = null;
 
     /**
+     * @var string
+     */
+    protected string $schemaTableConcatDelimiter = '__';
+
+    /**
      * Migration constructor.
      *
-     * @param DatabaseManager $databaseManager
+     * @param DatabaseManager|null $databaseManager
      */
-    public function __construct(DatabaseManager $databaseManager = null)
+    public function __construct(?DatabaseManager $databaseManager = null)
     {
         if ($databaseManager === null) {
             if (function_exists('app')) {
@@ -68,6 +74,20 @@ class Migration extends BaseMigration
     }
 
     /**
+     * Run the migrations.
+     *
+     * @return void
+     */
+    abstract public function up(): void;
+
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    abstract public function down(): void;
+
+    /**
      * @return string
      */
     protected function getDriverName(): string
@@ -82,7 +102,7 @@ class Migration extends BaseMigration
      */
     protected function usingDriver(string $driverName): bool
     {
-        return strtolower($this->getDriverName()) === strtolower($driverName);
+        return strtolower($this->getDriverName()) === strtolower(trim($driverName));
     }
 
     /**
@@ -90,7 +110,7 @@ class Migration extends BaseMigration
      */
     protected function usingMySQL(): bool
     {
-        return $this->usingDriver('mysql');
+        return $this->usingDriver(ConnectionManager::DRIVER_MYSQL);
     }
 
     /**
@@ -98,7 +118,7 @@ class Migration extends BaseMigration
      */
     protected function usingPostgreSQL(): bool
     {
-        return $this->usingDriver('pgsql');
+        return $this->usingDriver(ConnectionManager::DRIVER_POSTGRESQL);
     }
 
     /**
@@ -106,7 +126,7 @@ class Migration extends BaseMigration
      */
     protected function usingMSSQL(): bool
     {
-        return $this->usingDriver('sqlsrv');
+        return $this->usingDriver(ConnectionManager::DRIVER_MSSQL);
     }
 
     /**
@@ -114,6 +134,102 @@ class Migration extends BaseMigration
      */
     protected function usingSqlLite(): bool
     {
-        return $this->usingDriver('sqlite');
+        return $this->usingDriver(ConnectionManager::DRIVER_SQLITE);
+    }
+
+    /**
+     * @return bool
+     */
+    protected function currentDriverSupportsSchemas(): bool
+    {
+        return $this->usingPostgreSQL() || $this->usingMSSQL();
+    }
+
+    /**
+     * @param string      $tableName
+     * @param string|null $schemaName
+     *
+     * @return string
+     */
+    protected function mutateTableName(string $tableName, ?string $schemaName = null): string
+    {
+        $tableName = trim($tableName);
+        if (!empty($schemaName)) {
+            if ($this->currentDriverSupportsSchemas()) {
+                if (str_contains($tableName, '.')) {
+                    // if the a schema is already added to the table name, do not add them twice!
+                    return $tableName;
+                }
+
+                return $schemaName . '.' . $tableName;
+            }
+
+            if (str_contains($tableName, $schemaName . $this->schemaTableConcatDelimiter)) {
+                // if the a schema name is already added to the table name, do not add them twice!
+                return $tableName;
+            }
+
+            return $schemaName . $this->schemaTableConcatDelimiter . $tableName;
+        }
+
+        return $tableName;
+    }
+
+    /**
+     * @param string $schemaName
+     *
+     * @return string|null
+     */
+    protected function createCreateSchemaSql(string $schemaName): ?string
+    {
+        if ($this->currentDriverSupportsSchemas()) {
+            $schemaName = trim($schemaName);
+            $sql = "CREATE SCHEMA IF NOT EXISTS $schemaName;";
+
+            if ($this->usingMSSQL()) {
+                $sql = "IF NOT EXISTS (SELECT 1 FROM sys.schemas WHERE name = '$schemaName') BEGIN EXEC( 'CREATE SCHEMA $schemaName'); END";
+            }
+
+            return $sql;
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $schemaName
+     * @codeCoverageIgnore
+     */
+    protected function createSchema(string $schemaName)
+    {
+        if ($this->currentDriverSupportsSchemas()) {
+            $this->dbm->unprepared($this->createCreateSchemaSql($schemaName));
+        }
+    }
+
+    /**
+     * @param string $schemaName
+     *
+     * @return string|null
+     */
+    protected function createDropSchemaSql(string $schemaName): ?string
+    {
+        if ($this->currentDriverSupportsSchemas()) {
+            return 'DROP SCHEMA IF EXISTS ' . trim($schemaName) . ';';
+        }
+
+        return null;
+    }
+
+    /**
+     * @param string $schemaName
+     *
+     * @codeCoverageIgnore
+     */
+    protected function dropSchema(string $schemaName)
+    {
+        if ($this->currentDriverSupportsSchemas()) {
+            $this->dbm->unprepared($this->createDropSchemaSql($schemaName));
+        }
     }
 }

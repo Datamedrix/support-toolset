@@ -16,7 +16,6 @@ namespace DMX\Support\Tests\Unit\Database\Schema;
 
 use Illuminate\Support\Fluent;
 use PHPUnit\Framework\TestCase;
-use Illuminate\Database\Query\Expression;
 use DMX\Support\Database\Schema\Blueprint;
 use PHPUnit\Framework\MockObject\MockObject;
 
@@ -118,14 +117,17 @@ class BlueprintTest extends TestCase
         $fluentMock1
             ->expects($this->once())
             ->method('__call')
-            ->with('default', [new Expression('NOW()')])
+            ->with('useCurrent')
             ->willReturnSelf()
         ;
 
         $fluentMock2
-            ->expects($this->once())
+            ->expects($this->exactly(2))
             ->method('__call')
-            ->with('nullable', [])
+            ->withConsecutive(
+                ['nullable'],
+                ['useCurrentOnUpdate'],
+            )
             ->willReturnSelf()
         ;
 

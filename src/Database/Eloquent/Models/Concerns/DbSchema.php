@@ -14,6 +14,8 @@ declare(strict_types=1);
 
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
+use DMX\Support\Database\ConnectionManager;
+
 trait DbSchema
 {
     /**
@@ -89,7 +91,7 @@ trait DbSchema
      */
     protected function usingMySQL(): bool
     {
-        return $this->usingDriver('mysql');
+        return $this->usingDriver(ConnectionManager::DRIVER_MYSQL);
     }
 
     /**
@@ -97,7 +99,7 @@ trait DbSchema
      */
     protected function usingPostgreSQL(): bool
     {
-        return $this->usingDriver('pgsql');
+        return $this->usingDriver(ConnectionManager::DRIVER_POSTGRESQL);
     }
 
     /**
@@ -105,7 +107,7 @@ trait DbSchema
      */
     protected function usingMSSQL(): bool
     {
-        return $this->usingDriver('sqlsrv');
+        return $this->usingDriver(ConnectionManager::DRIVER_MSSQL);
     }
 
     /**
@@ -113,7 +115,7 @@ trait DbSchema
      */
     protected function usingSqlLite(): bool
     {
-        return $this->usingDriver('sqlite');
+        return $this->usingDriver(ConnectionManager::DRIVER_SQLITE);
     }
 
     /**
