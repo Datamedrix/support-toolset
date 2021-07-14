@@ -21,7 +21,7 @@
     "require-dev": {
         "ext-mbstring": "*",
         "friendsofphp/php-cs-fixer": "^2.15",
-        "phpunit/phpunit": "^8.5"
+        "phpunit/phpunit": "^9.5"
     },
     "autoload": {
         "psr-4": {
