@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [4.2.0](https://github.com/Datamedrix/support-toolset/compare/v4.1.0...v4.2.0) (2021-07-14)
+
+### Features
+
+* **database/migration:** Add methods to create and drop database schemas if the driver supports it. ([bed749d](https://github.com/Datamedrix/support-toolset/commit/bed749d4a665adf9df2bcad038722dd13aa1b2e5))
+
 ## [4.1.0](https://github.com/Datamedrix/support-toolset/compare/v4.0.1...v4.1.0) (2021-07-06)
 
 ### Features
