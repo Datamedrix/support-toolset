@@ -48,14 +48,14 @@ class Blueprint extends BaseBlueprint
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('no action');
 
             $this
                 ->foreign('updated_by')
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('no action');
         }
     }
 
@@ -80,14 +80,14 @@ class Blueprint extends BaseBlueprint
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('no action');
 
             $this
                 ->foreign('updated_by')
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate('cascade')
-                ->onDelete('restrict');
+                ->onDelete('no action');
         }
     }
 
