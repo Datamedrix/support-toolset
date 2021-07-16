@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.2.1](https://github.com/Datamedrix/support-toolset/compare/v4.2.0...v4.2.1) (2021-07-16)
+
+### Bug Fixes
+
+* **database/schema:** Use ANSI-SQL "no action" for on delete reference restrictions to be more compatible to MS SQL Server. ([db5a51d](https://github.com/Datamedrix/support-toolset/commit/db5a51d316af2ecf334a75d6236888bbb04302da))
+
 ## [4.2.0](https://github.com/Datamedrix/support-toolset/compare/v4.1.0...v4.2.0) (2021-07-14)
 
 ### Features
