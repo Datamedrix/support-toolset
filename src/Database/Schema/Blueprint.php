@@ -34,28 +34,28 @@ class Blueprint extends BaseBlueprint
      * Add nullable creation and update references to the designated users table to the table.
      *
      * @param string $referencedTo
+     * @param array  $referenceRestrictions
      */
-    public function userAudit(string $referencedTo = 'users')
+    public function userAudit(string $referencedTo = 'users', array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action'])
     {
         $this->foreignId('created_by')->nullable();
         $this->foreignId('updated_by')->nullable();
 
+        $referencedTo = trim($referencedTo);
         if (!empty($referencedTo)) {
-            $referencedTo = trim($referencedTo);
-
             $this
                 ->foreign('created_by')
                 ->references('id')
                 ->on($referencedTo)
-                ->onUpdate('cascade')
-                ->onDelete('no action');
+                ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
+                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action');
 
             $this
                 ->foreign('updated_by')
                 ->references('id')
                 ->on($referencedTo)
-                ->onUpdate('cascade')
-                ->onDelete('no action');
+                ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
+                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action');
         }
     }
 
@@ -64,31 +64,12 @@ class Blueprint extends BaseBlueprint
      *
      * @param string $referencedTo
      * @param int    $precision
+     * @param array  $referenceRestrictions
      */
-    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0)
+    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action'])
     {
-        $this->timestamp('created_at', $precision)->useCurrent();
-        $this->foreignId('created_by')->nullable();
-        $this->timestamp('updated_at', $precision)->nullable()->useCurrentOnUpdate();
-        $this->foreignId('updated_by')->nullable();
-
-        if (!empty($referencedTo)) {
-            $referencedTo = trim($referencedTo);
-
-            $this
-                ->foreign('created_by')
-                ->references('id')
-                ->on($referencedTo)
-                ->onUpdate('cascade')
-                ->onDelete('no action');
-
-            $this
-                ->foreign('updated_by')
-                ->references('id')
-                ->on($referencedTo)
-                ->onUpdate('cascade')
-                ->onDelete('no action');
-        }
+        $this->timestamps($precision);
+        $this->userAudit($referencedTo, $referenceRestrictions);
     }
 
     /**
