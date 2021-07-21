@@ -37,7 +37,7 @@ trait CanBeFilledByArray
             $fillableData = [];
             foreach ($this->getFillable() as $fillableAttribute) {
                 $key = $prefix . $fillableAttribute;
-                if (isset($data[$key])) {
+                if (array_key_exists($key, $data)) {
                     $fillableData[$fillableAttribute] = $data[$key];
                 }
             }
