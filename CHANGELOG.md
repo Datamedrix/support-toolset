@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [4.3.1](https://github.com/Datamedrix/support-toolset/compare/v4.3.0...v4.3.1) (2021-07-21)
+
+### Bug Fixes
+
+* **eloquent/model/concerns:** Use array_key_exists() instead of isset() to determine if data set in request, to be able to save fields set to null! ([709f987](https://github.com/Datamedrix/support-toolset/commit/709f987bffda12404298b1f1dfc0f05be98cd00b))
+
 ## [4.3.0](https://github.com/Datamedrix/support-toolset/compare/v4.2.1...v4.3.0) (2021-07-16)
 
 ### Features
