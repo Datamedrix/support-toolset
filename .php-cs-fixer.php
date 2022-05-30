@@ -30,14 +30,12 @@ $fixers = [
   'yoda_style' => false,
 ];
 
-return PhpCsFixer\Config::create()
+return (new \PhpCsFixer\Config())
   ->setFinder(
     PhpCsFixer\Finder::create()
       ->in(__DIR__ . '/src')
       ->in(__DIR__ . '/tests')
-
-      // Note: The pattern is seen relative from one of the `->in()`
-      // directories. And works for files too this way.
-      //->notPath('exampleDirectory/exampleSubDirectory/')
+      ->notPath('cache') // Note: The pattern is seen relative from one of the `->in()` directories. And works for files too this way.
   )
-  ->setRules($fixers);
+  ->setRules($fixers)
+;
