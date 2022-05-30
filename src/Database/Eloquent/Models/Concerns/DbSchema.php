@@ -19,7 +19,7 @@ use DMX\Support\Database\ConnectionManager;
 trait DbSchema
 {
     /**
-     * Delimiter used to concat the database schema- and the table- name if the database engine does not support schemas.
+     * Delimiter used to concat the database schema- and the table-name if the database engine does not support schemas.
      *
      * @var string
      */
@@ -49,16 +49,16 @@ trait DbSchema
         $schema = $this->getSchemaName();
         if (!empty($schema)) {
             if ($this->currentDriverSupportsSchemas()) {
-                if (strpos($tableName, '.') !== false) {
-                    // if the a schema is already added to the table name, do not add them twice!
+                if (str_contains($tableName, '.')) {
+                    // if a schema is already added to the table name, do not add them twice!
                     return $tableName;
                 }
 
                 return $schema . '.' . $tableName;
             }
 
-            if (strpos($tableName, $schema . $this->schemaTableConcatDelimiter) !== false) {
-                // if the a schema name is already added to the table name, do not add them twice!
+            if (str_contains($tableName, $schema . $this->schemaTableConcatDelimiter)) {
+                // if a schema name is already added to the table name, do not add them twice!
                 return $tableName;
             }
 

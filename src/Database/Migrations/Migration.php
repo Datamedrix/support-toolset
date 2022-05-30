@@ -157,7 +157,7 @@ abstract class Migration extends BaseMigration
         if (!empty($schemaName)) {
             if ($this->currentDriverSupportsSchemas()) {
                 if (str_contains($tableName, '.')) {
-                    // if the a schema is already added to the table name, do not add them twice!
+                    // if a schema is already added to the table name, do not add them twice!
                     return $tableName;
                 }
 
@@ -165,7 +165,7 @@ abstract class Migration extends BaseMigration
             }
 
             if (str_contains($tableName, $schemaName . $this->schemaTableConcatDelimiter)) {
-                // if the a schema name is already added to the table name, do not add them twice!
+                // if a schema name is already added to the table name, do not add them twice!
                 return $tableName;
             }
 

@@ -17,8 +17,8 @@ namespace DMX\Support\Database\Eloquent\Models\Concerns;
 trait CanBeFilledByArray
 {
     /**
-     * Fill the attributes of a model object with an associated array.
-     * Fields which are not fillable or don't exists in the given data array, will be ignored.
+     * Fill attributes of a model object with an associated array.
+     * Fields which are not fillable or don't exist in the given data array, will be ignored.
      *
      * Use the optional $prefix parameter to differ the required field names in the data array.
      *
@@ -29,7 +29,7 @@ trait CanBeFilledByArray
      */
     public function fillFromArray(array $data, ?string $prefix = null): self
     {
-        if (empty($data) || !is_array($data)) {
+        if (empty($data)) {
             return $this;
         }
 

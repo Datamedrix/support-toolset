@@ -24,7 +24,7 @@ class Blueprint extends BaseBlueprint
     /**
      * {@inheritdoc}
      */
-    public function timestamps($precision = 0)
+    public function timestamps($precision = 0): void
     {
         $this->timestamp('created_at', $precision)->useCurrent();
         $this->timestamp('updated_at', $precision)->nullable()->useCurrentOnUpdate();
@@ -34,12 +34,18 @@ class Blueprint extends BaseBlueprint
      * Add nullable creation and update references to the designated users table to the table.
      *
      * @param string $referencedTo
+     * @param bool   $inclSoftDeletes
      * @param array  $referenceRestrictions
+     *
+     * @return void
      */
-    public function userAudit(string $referencedTo = 'users', array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action'])
+    public function userAudit(string $referencedTo = 'users', bool $inclSoftDeletes = false, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void
     {
-        $this->foreignId('created_by')->nullable();
+        $this->foreignId('created_by');
         $this->foreignId('updated_by')->nullable();
+        if ($inclSoftDeletes) {
+            $this->foreignId('deleted_by')->nullable();
+        }
 
         $referencedTo = trim($referencedTo);
         if (!empty($referencedTo)) {
@@ -48,14 +54,26 @@ class Blueprint extends BaseBlueprint
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
-                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action');
+                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+            ;
 
             $this
                 ->foreign('updated_by')
                 ->references('id')
                 ->on($referencedTo)
                 ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
-                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action');
+                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+            ;
+
+            if ($inclSoftDeletes) {
+                $this
+                    ->foreign('deleted_by')
+                    ->references('id')
+                    ->on($referencedTo)
+                    ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
+                    ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+                ;
+            }
         }
     }
 
@@ -64,12 +82,18 @@ class Blueprint extends BaseBlueprint
      *
      * @param string $referencedTo
      * @param int    $precision
+     * @param bool   $inclSoftDeletes
      * @param array  $referenceRestrictions
+     *
+     * @return void
      */
-    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action'])
+    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, bool $inclSoftDeletes = false, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void
     {
         $this->timestamps($precision);
-        $this->userAudit($referencedTo, $referenceRestrictions);
+        if ($inclSoftDeletes) {
+            $this->softDeletes($precision);
+        }
+        $this->userAudit($referencedTo, $inclSoftDeletes, $referenceRestrictions);
     }
 
     /**
@@ -87,8 +111,8 @@ class Blueprint extends BaseBlueprint
     /**
      * {@inheritdoc}
      */
-    public function uuid($column): Fluent
+    public function uuid($column = 'uuid'): Fluent
     {
-        return parent::uuid($column)->unique()->index()->charset('ascii');
+        return parent::uuid((string) $column)->unique()->index()->charset('ascii');
     }
 }

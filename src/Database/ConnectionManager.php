@@ -16,8 +16,8 @@ namespace DMX\Support\Database;
 
 class ConnectionManager
 {
-    const DRIVER_MYSQL = 'mysql';
-    const DRIVER_POSTGRESQL = 'pgsql';
-    const DRIVER_MSSQL = 'sqlsrv';
-    const DRIVER_SQLITE = 'sqlite';
+    public const DRIVER_MYSQL = 'mysql';
+    public const DRIVER_POSTGRESQL = 'pgsql';
+    public const DRIVER_MSSQL = 'sqlsrv';
+    public const DRIVER_SQLITE = 'sqlite';
 }
