@@ -2,6 +2,20 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.0.0](https://github.com/Datamedrix/support-toolset/compare/v4.3.1...v5.0.0) (2022-05-31)
+
+### Features
+
+* **schema/blueprint:** Add option to include soft delete columns. ([dc30dea](https://github.com/Datamedrix/support-toolset/commit/dc30deaec6f479ce9edb0d820c76ac9f58535fd0))
+
+#### BREAKING CHANGE(s)
+* The method parameters declaration of `DMX\Support\Database\Schema::userAudit()` has changed!
+  * **old:** `userAudit(string $referencedTo = 'users', array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void`
+  * **new:** `userAudit(string $referencedTo = 'users', array $options = []): void`
+* The method parameters declaration of `DMX\Support\Database\Schema::userAuditInclTimestamps()` has changed!
+  * **old:** `userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void`
+  * **new:** `userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $options = []): void`
+
 ### [4.3.1](https://github.com/Datamedrix/support-toolset/compare/v4.3.0...v4.3.1) (2021-07-21)
 
 ### Bug Fixes
