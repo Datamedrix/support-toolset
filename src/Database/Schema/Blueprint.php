@@ -33,17 +33,43 @@ class Blueprint extends BaseBlueprint
     /**
      * Add nullable creation and update references to the designated users table to the table.
      *
-     * @param string $referencedTo
-     * @param bool   $inclSoftDeletes
-     * @param array  $referenceRestrictions
+     * Complete options with default values:
+     * ```php
+     *  [
+     *      'nullableCreatedBy' => true,
+     *      'nullableUpdatedBy' => true,
+     *      'inclSoftDeletes' => false,
+     *      'referenceRestrictions' => [
+     *          'onUpdate' => 'no action',
+     *          'onDelete' => 'no action'
+     *      ],
+     *  ]
+     * ```
+     *
+     * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes and referenceRestrictions
      *
      * @return void
      */
-    public function userAudit(string $referencedTo = 'users', bool $inclSoftDeletes = false, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void
+    public function userAudit(string $referencedTo = 'users', array $options = []): void
     {
-        $this->foreignId('created_by');
-        $this->foreignId('updated_by')->nullable();
-        if ($inclSoftDeletes) {
+        // Normalize the options.
+        $options = array_merge(
+            [
+                'nullableCreatedBy' => true,
+                'nullableUpdatedBy' => true,
+                'inclSoftDeletes' => false,
+                'referenceRestrictions' => [
+                    'onUpdate' => 'no action',
+                    'onDelete' => 'no action',
+                ],
+            ],
+            $options
+        );
+
+        $this->foreignId('created_by')->nullable((bool) $options['nullableCreatedBy']);
+        $this->foreignId('updated_by')->nullable((bool) $options['nullableUpdatedBy']);
+        if ($options['inclSoftDeletes'] === true) {
             $this->foreignId('deleted_by')->nullable();
         }
 
@@ -53,25 +79,25 @@ class Blueprint extends BaseBlueprint
                 ->foreign('created_by')
                 ->references('id')
                 ->on($referencedTo)
-                ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
-                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+                ->onUpdate($options['referenceRestrictions']['onUpdate'] ?? 'no action')
+                ->onDelete($options['referenceRestrictions']['onDelete'] ?? 'no action')
             ;
 
             $this
                 ->foreign('updated_by')
                 ->references('id')
                 ->on($referencedTo)
-                ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
-                ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+                ->onUpdate($options['referenceRestrictions']['onUpdate'] ?? 'no action')
+                ->onDelete($options['referenceRestrictions']['onDelete'] ?? 'no action')
             ;
 
-            if ($inclSoftDeletes) {
+            if ($options['inclSoftDeletes'] === true) {
                 $this
                     ->foreign('deleted_by')
                     ->references('id')
                     ->on($referencedTo)
-                    ->onUpdate($referenceRestrictions['onUpdate'] ?? 'no action')
-                    ->onDelete($referenceRestrictions['onDelete'] ?? 'no action')
+                    ->onUpdate($options['referenceRestrictions']['onUpdate'] ?? 'no action')
+                    ->onDelete($options['referenceRestrictions']['onDelete'] ?? 'no action')
                 ;
             }
         }
@@ -80,20 +106,44 @@ class Blueprint extends BaseBlueprint
     /**
      * Add nullable creation and update references to the designated users table and timestamps to the table.
      *
-     * @param string $referencedTo
+     * Complete options with default values:
+     * ```php
+     *  [
+     *      'nullableCreatedBy' => true,
+     *      'nullableUpdatedBy' => true,
+     *      'inclSoftDeletes' => false,
+     *      'referenceRestrictions' => [
+     *          'onUpdate' => 'no action',
+     *          'onDelete' => 'no action'
+     *      ],
+     *  ]
+     * ```
+     *
+     * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
      * @param int    $precision
-     * @param bool   $inclSoftDeletes
-     * @param array  $referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes and referenceRestrictions
      *
      * @return void
      */
-    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, bool $inclSoftDeletes = false, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void
+    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $options = []): void
     {
+        // Normalize the options.
+        $options = array_merge(
+            [
+                'inclSoftDeletes' => false,
+                'referenceRestrictions' => [
+                    'onUpdate' => 'no action',
+                    'onDelete' => 'no action',
+                ],
+            ],
+            $options
+        );
+
         $this->timestamps($precision);
-        if ($inclSoftDeletes) {
+        if ($options['inclSoftDeletes'] === true) {
             $this->softDeletes($precision);
         }
-        $this->userAudit($referencedTo, $inclSoftDeletes, $referenceRestrictions);
+        $this->userAudit($referencedTo, $options);
     }
 
     /**
