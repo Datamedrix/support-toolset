@@ -141,7 +141,7 @@ class Blueprint extends BaseBlueprint
 
         $this->timestamps($precision);
         if ($options['inclSoftDeletes'] === true) {
-            $this->softDeletes($precision);
+            $this->softDeletes('deleted_at', $precision);
         }
         $this->userAudit($referencedTo, $options);
     }
