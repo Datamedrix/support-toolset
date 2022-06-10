@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.0.1](https://github.com/Datamedrix/support-toolset/compare/v5.0.0...v5.0.1) (2022-06-10)
+
+### Bug Fixes
+
+* **database/schema/blueprint:** Use correct parameter order for precision, when add soft deletes timestamps. ([d4d8886](https://github.com/Datamedrix/support-toolset/commit/d4d88861718466954ca4568b7112a11da40de012))
+
 ## [5.0.0](https://github.com/Datamedrix/support-toolset/compare/v4.3.1...v5.0.0) (2022-05-31)
 
 ### Features
