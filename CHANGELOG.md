@@ -2,6 +2,21 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.1.0](https://github.com/Datamedrix/support-toolset/compare/v5.0.1...v5.1.0) (2022-07-26)
+
+### Features
+
+* **database/schema/blueprint:** Add option to add "imported_by" and "imported_at" when using the userAudit functions. ([1c44981](https://github.com/Datamedrix/support-toolset/commit/1c449816579b42c4c382b29a21bababb7aec7373))
+
+### Examples
+```php
+$table->userAudit('users', 0, ['inclImportedBy' => true]);
+```
+or
+```php
+$table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
+```
+
 ### [5.0.1](https://github.com/Datamedrix/support-toolset/compare/v5.0.0...v5.0.1) (2022-06-10)
 
 ### Bug Fixes
