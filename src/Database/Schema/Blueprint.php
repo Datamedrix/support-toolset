@@ -39,6 +39,7 @@ class Blueprint extends BaseBlueprint
      *      'nullableCreatedBy' => true,
      *      'nullableUpdatedBy' => true,
      *      'inclSoftDeletes' => false,
+     *      'inclImportedBy' => false,
      *      'referenceRestrictions' => [
      *          'onUpdate' => 'no action',
      *          'onDelete' => 'no action'
@@ -47,7 +48,7 @@ class Blueprint extends BaseBlueprint
      * ```
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy and referenceRestrictions
      *
      * @return void
      */
@@ -59,6 +60,7 @@ class Blueprint extends BaseBlueprint
                 'nullableCreatedBy' => true,
                 'nullableUpdatedBy' => true,
                 'inclSoftDeletes' => false,
+                'inclImportedBy' => false,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
@@ -100,6 +102,16 @@ class Blueprint extends BaseBlueprint
                     ->onDelete($options['referenceRestrictions']['onDelete'] ?? 'no action')
                 ;
             }
+
+            if ($options['inclImportedBy'] === true) {
+                $this
+                    ->foreign('imported_by')
+                    ->references('id')
+                    ->on($referencedTo)
+                    ->onUpdate($options['referenceRestrictions']['onUpdate'] ?? 'no action')
+                    ->onDelete($options['referenceRestrictions']['onDelete'] ?? 'no action')
+                ;
+            }
         }
     }
 
@@ -112,6 +124,7 @@ class Blueprint extends BaseBlueprint
      *      'nullableCreatedBy' => true,
      *      'nullableUpdatedBy' => true,
      *      'inclSoftDeletes' => false,
+     *      'inclImportedBy' => false,
      *      'referenceRestrictions' => [
      *          'onUpdate' => 'no action',
      *          'onDelete' => 'no action'
@@ -121,7 +134,7 @@ class Blueprint extends BaseBlueprint
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
      * @param int    $precision
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy and referenceRestrictions
      *
      * @return void
      */
@@ -131,6 +144,7 @@ class Blueprint extends BaseBlueprint
         $options = array_merge(
             [
                 'inclSoftDeletes' => false,
+                'inclImportedBy' => false,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
@@ -142,6 +156,9 @@ class Blueprint extends BaseBlueprint
         $this->timestamps($precision);
         if ($options['inclSoftDeletes'] === true) {
             $this->softDeletes('deleted_at', $precision);
+        }
+        if ($options['inclImportedBy'] === true) {
+            $this->timestamp('imported_at', $precision)->nullable();
         }
         $this->userAudit($referencedTo, $options);
     }
