@@ -74,6 +74,9 @@ class Blueprint extends BaseBlueprint
         if ($options['inclSoftDeletes'] === true) {
             $this->foreignId('deleted_by')->nullable();
         }
+        if ($options['inclImportedBy'] === true) {
+            $this->foreignId('imported_by')->nullable();
+        }
 
         $referencedTo = trim($referencedTo);
         if (!empty($referencedTo)) {
