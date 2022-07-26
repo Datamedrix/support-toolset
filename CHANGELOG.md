@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.1.1](https://github.com/Datamedrix/support-toolset/compare/v5.1.0...v5.1.1) (2022-07-26)
+
+### Bug Fixes
+
+* **database/schema/blueprint:** Add missing column definition for "imported_by". ([f2114d9](https://github.com/Datamedrix/support-toolset/commit/f2114d9615610d7c3978fa26cd43c9eb4821d85d))
+
 ## [5.1.0](https://github.com/Datamedrix/support-toolset/compare/v5.0.1...v5.1.0) (2022-07-26)
 
 ### Features
