@@ -76,6 +76,7 @@ class Blueprint extends BaseBlueprint
         }
         if ($options['inclImportedBy'] === true) {
             $this->foreignId('imported_by')->nullable();
+            $this->foreignId('original_import_id')->nullable();
         }
 
         $referencedTo = trim($referencedTo);
