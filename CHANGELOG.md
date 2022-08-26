@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [5.2.0](https://github.com/Datamedrix/support-toolset/compare/v5.1.1...v5.2.0) (2022-08-26)
+
+### Features
+
+* **database/schema/blueprint:** Add column "original_import_id" if the option "inclImportedBy" is set to true using the userAudit functions. ([7b5513f](https://github.com/Datamedrix/support-toolset/commit/7b5513febc42f881f29d809b03fe54a75e1cee5a))
+
 ### [5.1.1](https://github.com/Datamedrix/support-toolset/compare/v5.1.0...v5.1.1) (2022-07-26)
 
 ### Bug Fixes
