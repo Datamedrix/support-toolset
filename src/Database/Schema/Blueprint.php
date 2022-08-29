@@ -40,6 +40,7 @@ class Blueprint extends BaseBlueprint
      *      'nullableUpdatedBy' => true,
      *      'inclSoftDeletes' => false,
      *      'inclImportedBy' => false,
+     *      'originalImportIdLength' => 256,
      *      'referenceRestrictions' => [
      *          'onUpdate' => 'no action',
      *          'onDelete' => 'no action'
@@ -48,7 +49,7 @@ class Blueprint extends BaseBlueprint
      * ```
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, originalImportIdLength and referenceRestrictions
      *
      * @return void
      */
@@ -61,7 +62,7 @@ class Blueprint extends BaseBlueprint
                 'nullableUpdatedBy' => true,
                 'inclSoftDeletes' => false,
                 'inclImportedBy' => false,
-                'originalImportIdLength' => 1024,
+                'originalImportIdLength' => 256,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
@@ -130,6 +131,7 @@ class Blueprint extends BaseBlueprint
      *      'nullableUpdatedBy' => true,
      *      'inclSoftDeletes' => false,
      *      'inclImportedBy' => false,
+     *      'originalImportIdLength' => 256,
      *      'referenceRestrictions' => [
      *          'onUpdate' => 'no action',
      *          'onDelete' => 'no action'
@@ -139,7 +141,7 @@ class Blueprint extends BaseBlueprint
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
      * @param int    $precision
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, originalImportIdLength and referenceRestrictions
      *
      * @return void
      */
@@ -150,6 +152,7 @@ class Blueprint extends BaseBlueprint
             [
                 'inclSoftDeletes' => false,
                 'inclImportedBy' => false,
+                'originalImportIdLength' => 256,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
