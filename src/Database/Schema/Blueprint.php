@@ -61,6 +61,7 @@ class Blueprint extends BaseBlueprint
                 'nullableUpdatedBy' => true,
                 'inclSoftDeletes' => false,
                 'inclImportedBy' => false,
+                'originalImportIdLength' => 1024,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
@@ -76,7 +77,7 @@ class Blueprint extends BaseBlueprint
         }
         if ($options['inclImportedBy'] === true) {
             $this->foreignId('imported_by')->nullable();
-            $this->foreignId('original_import_id')->nullable();
+            $this->string('original_import_id', (int) ($options['originalImportIdLength'] ?? 1024))->nullable();
         }
 
         $referencedTo = trim($referencedTo);
