@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [5.2.1](https://github.com/Datamedrix/support-toolset/compare/v5.2.0...v5.2.1) (2022-08-29)
+
+### Bug Fixes
+
+* **database/schema/blueprint:** Define column "original_import_id" as string to be able to save uuid like ids. ([ac4ef4c](https://github.com/Datamedrix/support-toolset/commit/ac4ef4cb7dc14b753ef45a326258124c4cfa32e1))
+
 ## [5.2.0](https://github.com/Datamedrix/support-toolset/compare/v5.1.1...v5.2.0) (2022-08-26)
 
 ### Features
