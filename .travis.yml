@@ -3,7 +3,7 @@ language: php
 php:
   - 7.4
 
-# faster builds on new travis setup not using super user
+# faster builds on new travis setup not using super-user
 sudo: false
 
 # cache vendor dirs

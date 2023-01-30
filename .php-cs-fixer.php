@@ -1,5 +1,4 @@
-<?php
-declare(strict_types=1);
+<?php declare(strict_types=1);
 
 $fixers = [
   '@Symfony' => true,
@@ -35,7 +34,7 @@ return (new \PhpCsFixer\Config())
     PhpCsFixer\Finder::create()
       ->in(__DIR__ . '/src')
       ->in(__DIR__ . '/tests')
-      ->notPath('cache') // Note: The pattern is seen relative from one of the `->in()` directories. And works for files too this way.
+      ->notPath('cache') // Note: The pattern is seen relative from one of the `->in()` directories. And works for files to this way.
   )
   ->setRules($fixers)
 ;

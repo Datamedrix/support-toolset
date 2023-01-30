@@ -1,14 +1,4 @@
 <?php
-/**
- * ----------------------------------------------------------------------------
- * This code is part of an application or library developed by Datamedrix and
- * is subject to the provisions of your License Agreement with
- * Datamedrix GmbH.
- *
- * @copyright (c) 2018 Datamedrix GmbH
- * ----------------------------------------------------------------------------
- * @author Christian Graf <c.graf@datamedrix.com>
- */
 
 declare(strict_types=1);
 
@@ -27,17 +17,17 @@ class MigrationTest extends TestCase
     /**
      * @var DatabaseManager|MockObject
      */
-    private $dbmMock;
+    private MockObject $dbmMock;
 
     /**
      * @var Connection|MockObject
      */
-    private $connectionMock;
+    private MockObject $connectionMock;
 
     /**
      * @var Builder|MockObject
      */
-    private $schemaMock;
+    private MockObject $schemaMock;
 
     /**
      * {@inheritdoc}
@@ -170,7 +160,7 @@ class MigrationTest extends TestCase
 
         $migration = new MigrationMock($this->dbmMock);
 
-        $randomDriverName = 'Foo' . rand(1000, 999);
+        $randomDriverName = 'Foo' . rand(1000, 9999);
         $this->assertFalse($migration->callCurrentDriverSupportsSchemas());
         $randomDriverName = ConnectionManager::DRIVER_POSTGRESQL;
         $this->assertTrue($migration->callCurrentDriverSupportsSchemas());

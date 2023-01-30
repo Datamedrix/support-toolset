@@ -1,14 +1,4 @@
 <?php
-/**
- * ----------------------------------------------------------------------------
- * This code is part of an application or library developed by Datamedrix and
- * is subject to the provisions of your License Agreement with
- * Datamedrix GmbH.
- *
- * @copyright (c) 2019 Datamedrix GmbH
- * ----------------------------------------------------------------------------
- * @author Christian Graf <c.graf@datamedrix.com>
- */
 
 declare(strict_types=1);
 
@@ -40,7 +30,7 @@ abstract class Migration extends BaseMigration
     /**
      * @var string
      */
-    protected string $schemaTableConcatDelimiter = '__';
+    protected string $schemaTableConcatDelimiter = ConnectionManager::SCHEMA_TABLE_CONCAT_DELIMITER;
 
     /**
      * Migration constructor.
@@ -153,26 +143,12 @@ abstract class Migration extends BaseMigration
      */
     protected function mutateTableName(string $tableName, ?string $schemaName = null): string
     {
-        $tableName = trim($tableName);
-        if (!empty($schemaName)) {
-            if ($this->currentDriverSupportsSchemas()) {
-                if (str_contains($tableName, '.')) {
-                    // if a schema is already added to the table name, do not add them twice!
-                    return $tableName;
-                }
-
-                return $schemaName . '.' . $tableName;
-            }
-
-            if (str_contains($tableName, $schemaName . $this->schemaTableConcatDelimiter)) {
-                // if a schema name is already added to the table name, do not add them twice!
-                return $tableName;
-            }
-
-            return $schemaName . $this->schemaTableConcatDelimiter . $tableName;
-        }
-
-        return $tableName;
+        return ConnectionManager::mutateTableName(
+            trim($tableName),
+            $schemaName,
+            $this->getDriverName(),
+            $this->schemaTableConcatDelimiter
+        );
     }
 
     /**
@@ -198,6 +174,7 @@ abstract class Migration extends BaseMigration
 
     /**
      * @param string $schemaName
+     *
      * @codeCoverageIgnore
      */
     protected function createSchema(string $schemaName)

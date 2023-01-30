@@ -1,20 +1,11 @@
 <?php
-/**
- * ----------------------------------------------------------------------------
- * This code is part of an application or library developed by Datamedrix and
- * is subject to the provisions of your License Agreement with
- * Datamedrix GmbH.
- *
- * @copyright (c) 2018 Datamedrix GmbH
- * ----------------------------------------------------------------------------
- * @author Christian Graf <c.graf@datamedrix.com>
- */
 
 declare(strict_types=1);
 
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
 use Illuminate\Support\Str;
+use Illuminate\Database\Eloquent\Concerns\HasAttributes;
 
 /**
  * Trait HasSnakeCaseAttributes.
@@ -23,6 +14,8 @@ use Illuminate\Support\Str;
  */
 trait HasSnakeCaseAttributes
 {
+    use HasAttributes;
+
     /**
      * Get an attribute from the model incl. snake case notation support.
      *
@@ -36,7 +29,7 @@ trait HasSnakeCaseAttributes
             return null;
         }
 
-        // performance: check if a eager loaded attribute exists with the given key, if yes use them
+        // performance: check if an eager loaded attribute exists with the given key, if yes use them
         if (array_key_exists($key, $this->relations ?? []) || method_exists($this, $key)) {
             return parent::getAttribute($key);
         }

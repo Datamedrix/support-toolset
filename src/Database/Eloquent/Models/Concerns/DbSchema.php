@@ -1,14 +1,4 @@
 <?php
-/**
- * ----------------------------------------------------------------------------
- * This code is part of an application or library developed by Datamedrix and
- * is subject to the provisions of your License Agreement with
- * Datamedrix GmbH.
- *
- * @copyright (c) 2019 Datamedrix GmbH
- * ----------------------------------------------------------------------------
- * @author Christian Graf <c.graf@datamedrix.com>
- */
 
 declare(strict_types=1);
 
@@ -23,7 +13,7 @@ trait DbSchema
      *
      * @var string
      */
-    protected string $schemaTableConcatDelimiter = '__';
+    protected string $schemaTableConcatDelimiter = ConnectionManager::SCHEMA_TABLE_CONCAT_DELIMITER;
 
     /**
      * The database schema name associated with the model.
@@ -45,27 +35,12 @@ trait DbSchema
      */
     public function getTable()
     {
-        $tableName = parent::getTable();
-        $schema = $this->getSchemaName();
-        if (!empty($schema)) {
-            if ($this->currentDriverSupportsSchemas()) {
-                if (str_contains($tableName, '.')) {
-                    // if a schema is already added to the table name, do not add them twice!
-                    return $tableName;
-                }
-
-                return $schema . '.' . $tableName;
-            }
-
-            if (str_contains($tableName, $schema . $this->schemaTableConcatDelimiter)) {
-                // if a schema name is already added to the table name, do not add them twice!
-                return $tableName;
-            }
-
-            return $schema . $this->schemaTableConcatDelimiter . $tableName;
-        }
-
-        return $tableName;
+        return ConnectionManager::mutateTableName(
+            parent::getTable(),
+            $this->getSchemaName(),
+            $this->getDatabaseDriverName(),
+            $this->schemaTableConcatDelimiter
+        );
     }
 
     /**
