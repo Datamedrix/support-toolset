@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.0.0](https://github.com/Datamedrix/support-toolset/compare/v5.2.1...v6.0.0) (2023-01-30)
+
+### Features
+
+* Migrate to PHP v8.2. ([a1b15d5](https://github.com/Datamedrix/support-toolset/commit/a1b15d51d8b80a8de7107e6d5182699a6fb4c054))
+
 ### [5.2.1](https://github.com/Datamedrix/support-toolset/compare/v5.2.0...v5.2.1) (2022-08-29)
 
 ### Bug Fixes
