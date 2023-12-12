@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [6.1.0](https://github.com/Datamedrix/support-toolset/compare/v6.0.0...v6.1.0) (2023-12-12)
+
+### Features
+
+* Add support for Laravel v10. ([3cdfb91](https://github.com/Datamedrix/support-toolset/commit/3cdfb913d13f021cb8385ed679ad4e21517f4932))
+
 ## [6.0.0](https://github.com/Datamedrix/support-toolset/compare/v5.2.1...v6.0.0) (2023-01-30)
 
 ### Features
