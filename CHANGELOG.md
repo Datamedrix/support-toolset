@@ -2,6 +2,19 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.0](https://github.com/Datamedrix/support-toolset/compare/v6.1.0...v7.0.0) (2024-04-16)
+
+### BREAKING CHANGES:
+* Set minimum PHP version to ^8.3
+* Rename schema blueprint helper method `userAudit` to `blamable`
+* Rename schema blueprint helper method `userAuditInclTimestamps` to `blamableInclTimestamps`
+* Rename migration property `dbm` to `databaseManager`
+
+### Features
+
+* Add support for Laravel v11. ([6860d35](https://github.com/Datamedrix/support-toolset/commit/6860d35153335862e7a618ad9ed9577df0f54497))
+* Add helper method `rawColumn` to blueprint.
+
 ## [6.1.0](https://github.com/Datamedrix/support-toolset/compare/v6.0.0...v6.1.0) (2023-12-12)
 
 ### Features
