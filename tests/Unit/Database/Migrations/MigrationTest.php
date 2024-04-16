@@ -4,6 +4,8 @@ declare(strict_types=1);
 
 namespace DMX\Support\Tests\Unit\Database\Migrations;
 
+use Closure;
+use RuntimeException;
 use PHPUnit\Framework\TestCase;
 use Illuminate\Database\Connection;
 use Illuminate\Database\Schema\Builder;
@@ -11,6 +13,7 @@ use Illuminate\Database\DatabaseManager;
 use DMX\Support\Tests\Mocks\MigrationMock;
 use DMX\Support\Database\ConnectionManager;
 use PHPUnit\Framework\MockObject\MockObject;
+use PHPUnit\Framework\Attributes\DataProvider;
 
 class MigrationTest extends TestCase
 {
@@ -56,7 +59,7 @@ class MigrationTest extends TestCase
         $this->schemaMock
             ->expects($this->any())
             ->method('blueprintResolver')
-            ->with($this->isInstanceOf(\Closure::class))
+            ->with($this->isInstanceOf(Closure::class))
         ;
         $this->schemaMock
             ->expects($this->any())
@@ -70,7 +73,7 @@ class MigrationTest extends TestCase
      */
     public function testConstructorThrowsException()
     {
-        $this->expectException(\InvalidArgumentException::class);
+        $this->expectException(RuntimeException::class);
 
         new MigrationMock();
     }
@@ -175,7 +178,7 @@ class MigrationTest extends TestCase
     /**
      * @return array[]
      */
-    public function tableNameProvider(): array
+    public static function tableNameProvider(): array
     {
         return [
             // driver | expected | table | schema
@@ -205,13 +208,12 @@ class MigrationTest extends TestCase
     /**
      * Test.
      *
-     * @dataProvider tableNameProvider
-     *
      * @param string      $driverName
      * @param string      $expected
      * @param string      $tableName
      * @param string|null $schemaName
      */
+    #[DataProvider('tableNameProvider')]
     public function testMutateTableName(string $driverName, string $expected, string $tableName, ?string $schemaName = null)
     {
         $this->connectionMock
@@ -227,7 +229,7 @@ class MigrationTest extends TestCase
     /**
      * @return array[]
      */
-    public function createSchemaProvider(): array
+    public static function createSchemaProvider(): array
     {
         return [
             // driver | expected | schema
@@ -245,12 +247,11 @@ class MigrationTest extends TestCase
     /**
      * Test.
      *
-     * @dataProvider createSchemaProvider
-     *
      * @param string $driverName
      * @param string $expected
      * @param string $schemaName
      */
+    #[DataProvider('createSchemaProvider')]
     public function testCreateSchema(string $driverName, string $expected, string $schemaName)
     {
         $this->connectionMock
@@ -270,7 +271,7 @@ class MigrationTest extends TestCase
     /**
      * @return array[]
      */
-    public function dropSchemaProvider(): array
+    public static function dropSchemaProvider(): array
     {
         return [
             // driver | expected | schema
@@ -288,12 +289,11 @@ class MigrationTest extends TestCase
     /**
      * Test.
      *
-     * @dataProvider dropSchemaProvider
-     *
      * @param string $driverName
      * @param string $expected
      * @param string $schemaName
      */
+    #[DataProvider('dropSchemaProvider')]
     public function testDropSchema(string $driverName, string $expected, string $schemaName)
     {
         $this->connectionMock

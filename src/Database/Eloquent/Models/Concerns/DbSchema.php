@@ -48,7 +48,7 @@ trait DbSchema
      */
     protected function getDatabaseDriverName(): string
     {
-        return $this->getConnection()->getDriverName();
+        return $this->getConnection()?->getDriverName() ?? '';
     }
 
     /**

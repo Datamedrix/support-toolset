@@ -5,11 +5,26 @@ declare(strict_types=1);
 namespace DMX\Support\Database\Schema;
 
 use Illuminate\Support\Fluent;
+use Illuminate\Database\Schema\ColumnDefinition;
 use Illuminate\Database\Schema\Blueprint as BaseBlueprint;
 
 class Blueprint extends BaseBlueprint
 {
-    public const STRING_IDENTIFIER_LENGTH = 64;
+    public const int STRING_IDENTIFIER_LENGTH = 64;
+
+    /**
+     * Specify a raw column to the table.
+     * Could be used to add a column with database specific data types if the database engine supports it like PostgreSQL.
+     *
+     * @param string $columnType
+     * @param string $columnName
+     *
+     * @return ColumnDefinition
+     */
+    public function rawColumn(string $columnType, string $columnName): ColumnDefinition
+    {
+        return $this->addColumn('raw', $columnName, ['raw_type' => $columnType]);
+    }
 
     /**
      * {@inheritdoc}
@@ -30,7 +45,7 @@ class Blueprint extends BaseBlueprint
      *      'nullableUpdatedBy' => true,
      *      'inclSoftDeletes' => false,
      *      'inclImportedBy' => false,
-     *      'originalImportIdLength' => 256,
+     *      'foreignIdLength' => 256,
      *      'referenceRestrictions' => [
      *          'onUpdate' => 'no action',
      *          'onDelete' => 'no action'
@@ -39,11 +54,11 @@ class Blueprint extends BaseBlueprint
      * ```
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, originalImportIdLength and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, foreignIdLength and referenceRestrictions
      *
      * @return void
      */
-    public function userAudit(string $referencedTo = 'users', array $options = []): void
+    public function blamable(string $referencedTo = 'users', array $options = []): void
     {
         // Normalize the options.
         $options = array_merge(
@@ -52,7 +67,7 @@ class Blueprint extends BaseBlueprint
                 'nullableUpdatedBy' => true,
                 'inclSoftDeletes' => false,
                 'inclImportedBy' => false,
-                'originalImportIdLength' => 256,
+                'foreignIdLength' => 256,
                 'referenceRestrictions' => [
                     'onUpdate' => 'no action',
                     'onDelete' => 'no action',
@@ -68,7 +83,7 @@ class Blueprint extends BaseBlueprint
         }
         if ($options['inclImportedBy'] === true) {
             $this->foreignId('imported_by')->nullable();
-            $this->string('original_import_id', (int) ($options['originalImportIdLength'] ?? 1024))->nullable();
+            $this->string('imported_foreign_id', (int) ($options['foreignIdLength'] ?? 1024))->nullable();
         }
 
         $referencedTo = trim($referencedTo);
@@ -116,37 +131,32 @@ class Blueprint extends BaseBlueprint
      *
      * Complete options with default values:
      * ```php
-     *  [
-     *      'nullableCreatedBy' => true,
-     *      'nullableUpdatedBy' => true,
-     *      'inclSoftDeletes' => false,
-     *      'inclImportedBy' => false,
-     *      'originalImportIdLength' => 256,
-     *      'referenceRestrictions' => [
-     *          'onUpdate' => 'no action',
-     *          'onDelete' => 'no action'
-     *      ],
-     *  ]
-     * ```
+     *   [
+     *       'nullableCreatedBy' => true,
+     *       'nullableUpdatedBy' => true,
+     *       'inclSoftDeletes' => false,
+     *       'inclImportedBy' => false,
+     *       'foreignIdLength' => 256,
+     *       'referenceRestrictions' => [
+     *           'onUpdate' => 'no action',
+     *           'onDelete' => 'no action'
+     *       ],
+     *   ]
+     *  ```
      *
      * @param string $referencedTo Full qualified name of the user table (incl. schema if needed).
      * @param int    $precision
-     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, originalImportIdLength and referenceRestrictions
+     * @param array  $options      Available options: nullableCreatedBy, nullableUpdatedBy, inclSoftDeletes, inclImportedBy, foreignIdLength and referenceRestrictions
      *
      * @return void
      */
-    public function userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $options = []): void
+    public function blamableInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $options = []): void
     {
         // Normalize the options.
         $options = array_merge(
             [
                 'inclSoftDeletes' => false,
                 'inclImportedBy' => false,
-                'originalImportIdLength' => 256,
-                'referenceRestrictions' => [
-                    'onUpdate' => 'no action',
-                    'onDelete' => 'no action',
-                ],
             ],
             $options
         );
@@ -158,7 +168,7 @@ class Blueprint extends BaseBlueprint
         if ($options['inclImportedBy'] === true) {
             $this->timestamp('imported_at', $precision)->nullable();
         }
-        $this->userAudit($referencedTo, $options);
+        $this->blamable($referencedTo, $options);
     }
 
     /**

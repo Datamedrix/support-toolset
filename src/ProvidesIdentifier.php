@@ -16,6 +16,6 @@ trait ProvidesIdentifier
      */
     public function identifier(): string
     {
-        return $this->identifier;
+        return $this->identifier ?? '';
     }
 }

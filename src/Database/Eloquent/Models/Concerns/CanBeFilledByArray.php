@@ -26,7 +26,7 @@ trait CanBeFilledByArray
         if (method_exists($this, 'getFillable') && method_exists($this, 'fill')) {
             $fillableData = [];
             foreach ($this->getFillable() as $fillableAttribute) {
-                $key = $prefix . $fillableAttribute;
+                $key = ($prefix ?? '') . $fillableAttribute;
                 if (array_key_exists($key, $data)) {
                     $fillableData[$fillableAttribute] = $data[$key];
                 }

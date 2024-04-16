@@ -4,33 +4,40 @@ declare(strict_types=1);
 
 namespace DMX\Support\Database\Migrations;
 
+use Closure;
+use RuntimeException;
 use Illuminate\Database\DatabaseManager;
 use DMX\Support\Database\Schema\Blueprint;
 use DMX\Support\Database\ConnectionManager;
 use Illuminate\Database\Schema\Builder as SchemaBuilder;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Migrations\Migration as BaseMigration;
+use Illuminate\Database\Schema\Blueprint as IlluminateBlueprint;
 
 abstract class Migration extends BaseMigration
 {
     /**
      * @var DatabaseManager
      */
-    protected DatabaseManager $dbm;
+    private DatabaseManager $databaseManager;
 
     /**
      * @var SchemaBuilder
      */
-    protected SchemaBuilder $schema;
-
-    /**
-     * @var string|null
-     */
-    protected ?string $baseFilePath = null;
+    private SchemaBuilder $schemaBuilder;
 
     /**
      * @var string
      */
     protected string $schemaTableConcatDelimiter = ConnectionManager::SCHEMA_TABLE_CONCAT_DELIMITER;
+
+    /**
+     * Class name of the blueprint to use.
+     * The class have to be inherited from `Illuminate\Database\Schema\Blueprint`.
+     *
+     * @var string
+     */
+    protected string $blueprintClass = Blueprint::class;
 
     /**
      * Migration constructor.
@@ -41,26 +48,48 @@ abstract class Migration extends BaseMigration
     {
         if ($databaseManager === null) {
             if (function_exists('app')) {
-                $databaseManager = app()->make(DatabaseManager::class, []);
+                try {
+                    $databaseManager = app()->make(DatabaseManager::class, []);
+                } catch (BindingResolutionException) {
+                    throw new RuntimeException('Unable to create migration, an instance of ' . DatabaseManager::class . ' could not be resolved!');
+                }
             } else {
-                throw new \InvalidArgumentException('This migration could not be created, because a instance of ' . DatabaseManager::class . ' is missing!');
+                throw new RuntimeException('Unable to create migration, there is no application dependency container available!');
             }
         }
 
-        $this->dbm = $databaseManager;
-        $this->schema = $this->dbm->connection($this->getConnection())->getSchemaBuilder();
+        $this->databaseManager = $databaseManager;
+        $this->schemaBuilder = $this->databaseManager->connection($this->getConnection())->getSchemaBuilder();
 
-        $this->schema->blueprintResolver(function (string $table, \Closure $callback = null): Blueprint {
-            // @codeCoverageIgnoreStart
-            return new Blueprint($table, $callback);
-            // @codeCoverageIgnoreEnd
-        });
-
-        if ($this->baseFilePath === null && function_exists('base_path')) {
-            // @codeCoverageIgnoreStart
-            $this->baseFilePath = base_path('database/migrations');
-            // @codeCoverageIgnoreEnd
+        if (!empty($this->blueprintClass)) {
+            $blueprintClass = $this->blueprintClass;
+            $this->schemaBuilder->blueprintResolver(function (string $table, ?Closure $callback = null) use ($blueprintClass): IlluminateBlueprint {
+                // @codeCoverageIgnoreStart
+                return new $blueprintClass($table, $callback);
+                // @codeCoverageIgnoreEnd
+            });
         }
+    }
+
+    /**
+     * Get the configured database manager instance.
+     *
+     * @return DatabaseManager
+     */
+    protected function dbm(): DatabaseManager
+    {
+        return $this->databaseManager;
+    }
+
+    /**
+     * Get the schema builder instances received from the database manager.
+     * Helper method to prevent using the support facade `Illuminate\Support\Facades\Schema`.
+     *
+     * @return SchemaBuilder
+     */
+    protected function schema(): SchemaBuilder
+    {
+        return $this->schemaBuilder;
     }
 
     /**
@@ -82,7 +111,7 @@ abstract class Migration extends BaseMigration
      */
     protected function getDriverName(): string
     {
-        return $this->schema->getConnection()->getDriverName();
+        return $this->schemaBuilder->getConnection()->getDriverName();
     }
 
     /**
@@ -177,10 +206,10 @@ abstract class Migration extends BaseMigration
      *
      * @codeCoverageIgnore
      */
-    protected function createSchema(string $schemaName)
+    protected function createSchema(string $schemaName): void
     {
         if ($this->currentDriverSupportsSchemas()) {
-            $this->dbm->unprepared($this->createCreateSchemaSql($schemaName));
+            $this->databaseManager->unprepared($this->createCreateSchemaSql($schemaName));
         }
     }
 
@@ -203,10 +232,10 @@ abstract class Migration extends BaseMigration
      *
      * @codeCoverageIgnore
      */
-    protected function dropSchema(string $schemaName)
+    protected function dropSchema(string $schemaName): void
     {
         if ($this->currentDriverSupportsSchemas()) {
-            $this->dbm->unprepared($this->createDropSchemaSql($schemaName));
+            $this->databaseManager->unprepared($this->createDropSchemaSql($schemaName));
         }
     }
 }

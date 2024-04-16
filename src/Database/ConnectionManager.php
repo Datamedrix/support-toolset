@@ -6,12 +6,12 @@ namespace DMX\Support\Database;
 
 class ConnectionManager
 {
-    public const DRIVER_MYSQL = 'mysql';
-    public const DRIVER_POSTGRESQL = 'pgsql';
-    public const DRIVER_MSSQL = 'sqlsrv';
-    public const DRIVER_SQLITE = 'sqlite';
+    public const string DRIVER_MYSQL = 'mysql';
+    public const string DRIVER_POSTGRESQL = 'pgsql';
+    public const string DRIVER_MSSQL = 'sqlsrv';
+    public const string DRIVER_SQLITE = 'sqlite';
 
-    public const SCHEMA_TABLE_CONCAT_DELIMITER = '__';
+    public const string SCHEMA_TABLE_CONCAT_DELIMITER = '__';
 
     /**
      * Checks the designated driver is supporting database schemas.

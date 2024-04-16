@@ -5,11 +5,11 @@ declare(strict_types=1);
 namespace DMX\Support\Tests\Unit\Database\Schema;
 
 use Illuminate\Support\Fluent;
-use PHPUnit\Framework\TestCase;
+use DMX\Support\Tests\ATestCase;
 use DMX\Support\Database\Schema\Blueprint;
 use PHPUnit\Framework\MockObject\MockObject;
 
-class BlueprintTest extends TestCase
+class BlueprintTest extends ATestCase
 {
     /**
      * @var Blueprint|MockObject
@@ -29,7 +29,7 @@ class BlueprintTest extends TestCase
         $this->fluentMock = $this->getMockBuilder(Fluent::class)->disableOriginalConstructor()->getMock();
         $this->blueprint = $this->getMockBuilder(Blueprint::class)
             ->disableOriginalConstructor()
-            ->setMethods(['timestamp', 'string', '__call', 'addColumn'])
+            ->onlyMethods(['timestamp', 'string', '__call', 'addColumn'])
             ->getMock()
         ;
     }
@@ -73,10 +73,12 @@ class BlueprintTest extends TestCase
         $this->fluentMock
             ->expects($this->exactly(3))
             ->method('__call')
-            ->withConsecutive(
-                ['unique'],
-                ['index'],
-                ['charset', ['ascii']]
+            ->with(
+                ...self::withConsecutive(
+                    ['unique'],
+                    ['index'],
+                    ['charset']
+                )
             )
             ->willReturnSelf()
         ;
@@ -97,9 +99,11 @@ class BlueprintTest extends TestCase
         $this->blueprint
             ->expects($this->exactly(2))
             ->method('timestamp')
-            ->withConsecutive(
-                ['created_at', $dummyPrecision],
-                ['updated_at', $dummyPrecision]
+            ->with(
+                ...self::withConsecutive(
+                    ['created_at', $dummyPrecision],
+                    ['updated_at', $dummyPrecision]
+                )
             )
             ->willReturnOnConsecutiveCalls($fluentMock1, $fluentMock2)
         ;
@@ -114,9 +118,11 @@ class BlueprintTest extends TestCase
         $fluentMock2
             ->expects($this->exactly(2))
             ->method('__call')
-            ->withConsecutive(
-                ['nullable'],
-                ['useCurrentOnUpdate'],
+            ->with(
+                ...self::withConsecutive(
+                    ['nullable'],
+                    ['useCurrentOnUpdate'],
+                )
             )
             ->willReturnSelf()
         ;
