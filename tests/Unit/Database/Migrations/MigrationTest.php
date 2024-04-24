@@ -81,7 +81,7 @@ class MigrationTest extends TestCase
     /**
      * Test.
      */
-    public function testGetDriverName()
+    public function testMethodGetDriverName()
     {
         $randomDriverName = 'T' . rand(10, 99) . '_est';
         $this->connectionMock
@@ -214,7 +214,7 @@ class MigrationTest extends TestCase
      * @param string|null $schemaName
      */
     #[DataProvider('tableNameProvider')]
-    public function testMutateTableName(string $driverName, string $expected, string $tableName, ?string $schemaName = null)
+    public function testMethodMutateTableName(string $driverName, string $expected, string $tableName, ?string $schemaName = null)
     {
         $this->connectionMock
             ->expects($this->any())
@@ -252,7 +252,7 @@ class MigrationTest extends TestCase
      * @param string $schemaName
      */
     #[DataProvider('createSchemaProvider')]
-    public function testCreateSchema(string $driverName, string $expected, string $schemaName)
+    public function testMethodCreateSchema(string $driverName, string $expected, string $schemaName)
     {
         $this->connectionMock
             ->expects($this->any())
@@ -294,7 +294,7 @@ class MigrationTest extends TestCase
      * @param string $schemaName
      */
     #[DataProvider('dropSchemaProvider')]
-    public function testDropSchema(string $driverName, string $expected, string $schemaName)
+    public function testMethodDropSchema(string $driverName, string $expected, string $schemaName)
     {
         $this->connectionMock
             ->expects($this->any())
@@ -308,5 +308,23 @@ class MigrationTest extends TestCase
         } else {
             $this->assertEquals($expected, $sql);
         }
+    }
+
+    /**
+     * Test.
+     */
+    public function testMethodDbm()
+    {
+        $migration = new MigrationMock($this->dbmMock);
+        $this->assertEquals($this->dbmMock, $migration->callDbm());
+    }
+
+    /**
+     * Test.
+     */
+    public function testMethodSchema()
+    {
+        $migration = new MigrationMock($this->dbmMock);
+        $this->assertEquals($this->schemaMock, $migration->callSchema());
     }
 }

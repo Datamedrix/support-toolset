@@ -4,7 +4,9 @@ declare(strict_types=1);
 
 namespace DMX\Support\Tests\Mocks;
 
+use Illuminate\Database\DatabaseManager;
 use DMX\Support\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Builder as SchemaBuilder;
 
 class MigrationMock extends Migration
 {
@@ -129,5 +131,21 @@ class MigrationMock extends Migration
     public function callCreateDropSchemaSql(string $schemaName): ?string
     {
         return $this->createDropSchemaSql($schemaName);
+    }
+
+    /**
+     * @return DatabaseManager
+     */
+    public function callDbm(): DatabaseManager
+    {
+        return $this->dbm();
+    }
+
+    /**
+     * @return SchemaBuilder
+     */
+    public function callSchema(): SchemaBuilder
+    {
+        return $this->schema();
     }
 }

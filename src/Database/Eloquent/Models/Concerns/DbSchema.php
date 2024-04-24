@@ -5,7 +5,13 @@ declare(strict_types=1);
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
 use DMX\Support\Database\ConnectionManager;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
+/**
+ * Trait DbSchema.
+ *
+ * @mixin EloquentModel
+ */
 trait DbSchema
 {
     /**
@@ -23,6 +29,18 @@ trait DbSchema
     protected ?string $schema = null;
 
     /**
+     * @param string $schema
+     *
+     * @return $this|EloquentModel
+     */
+    public function setSchemaName(string $schema): self
+    {
+        $this->schema = $schema;
+
+        return $this;
+    }
+
+    /**
      * @return string|null
      */
     public function getSchemaName(): ?string
@@ -31,9 +49,28 @@ trait DbSchema
     }
 
     /**
+     * @param string $delimiter
+     *
+     * @return $this|EloquentModel
+     */
+    public function setSchemaTableConcatDelimiter(string $delimiter): self
+    {
+        $this->schemaTableConcatDelimiter = trim($delimiter);
+
+        return $this;
+    }
+
+    public function getSchemaTableConcatDelimiter(): string
+    {
+        return $this->schemaTableConcatDelimiter;
+    }
+
+    /**
+     * Get the table associated with the model.
+     *
      * @return string
      */
-    public function getTable()
+    public function getTable(): string
     {
         return ConnectionManager::mutateTableName(
             parent::getTable(),
@@ -55,6 +92,8 @@ trait DbSchema
      * @param string $driverName
      *
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function usingDriver(string $driverName): bool
     {
@@ -63,6 +102,8 @@ trait DbSchema
 
     /**
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function usingMySQL(): bool
     {
@@ -71,6 +112,8 @@ trait DbSchema
 
     /**
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function usingPostgreSQL(): bool
     {
@@ -79,6 +122,8 @@ trait DbSchema
 
     /**
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function usingMSSQL(): bool
     {
@@ -87,6 +132,8 @@ trait DbSchema
 
     /**
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function usingSqlLite(): bool
     {
@@ -95,6 +142,8 @@ trait DbSchema
 
     /**
      * @return bool
+     *
+     * @codeCoverageIgnore
      */
     protected function currentDriverSupportsSchemas(): bool
     {

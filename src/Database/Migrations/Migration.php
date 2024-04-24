@@ -48,11 +48,13 @@ abstract class Migration extends BaseMigration
     {
         if ($databaseManager === null) {
             if (function_exists('app')) {
+                // @codeCoverageIgnoreStart
                 try {
                     $databaseManager = app()->make(DatabaseManager::class, []);
                 } catch (BindingResolutionException) {
                     throw new RuntimeException('Unable to create migration, an instance of ' . DatabaseManager::class . ' could not be resolved!');
                 }
+            // @codeCoverageIgnoreEnd
             } else {
                 throw new RuntimeException('Unable to create migration, there is no application dependency container available!');
             }

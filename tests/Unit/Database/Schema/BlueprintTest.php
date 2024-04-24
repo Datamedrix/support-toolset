@@ -8,6 +8,7 @@ use Illuminate\Support\Fluent;
 use DMX\Support\Tests\ATestCase;
 use DMX\Support\Database\Schema\Blueprint;
 use PHPUnit\Framework\MockObject\MockObject;
+use Illuminate\Database\Schema\ColumnDefinition;
 
 class BlueprintTest extends ATestCase
 {
@@ -29,7 +30,7 @@ class BlueprintTest extends ATestCase
         $this->fluentMock = $this->getMockBuilder(Fluent::class)->disableOriginalConstructor()->getMock();
         $this->blueprint = $this->getMockBuilder(Blueprint::class)
             ->disableOriginalConstructor()
-            ->onlyMethods(['timestamp', 'string', '__call', 'addColumn'])
+            ->onlyMethods(['timestamp', 'string', '__call', 'addColumn', 'foreignId'])
             ->getMock()
         ;
     }
@@ -128,5 +129,45 @@ class BlueprintTest extends ATestCase
         ;
 
         $this->blueprint->timestamps($dummyPrecision);
+    }
+
+    /**
+     * Test.
+     */
+    public function testMethodRawColumn()
+    {
+        $columnDefinitionMock = $this->createMock(ColumnDefinition::class);
+        $dummyType = 'my_type_' . rand(100, 999);
+        $dummyColumnName = 'col_' . rand(100, 999);
+        $this->blueprint
+            ->expects($this->once())
+            ->method('addColumn')
+            ->with('raw', $dummyColumnName, ['raw_type' => $dummyType])
+            ->willReturn($columnDefinitionMock)
+        ;
+
+        $this->blueprint->rawColumn($dummyType, $dummyColumnName);
+    }
+
+    /**
+     * Test.
+     */
+    public function testMethodBlamable()
+    {
+        $dummyReference = 'tbl_' . rand(100, 999) . 'users';
+
+        $this->blueprint
+            ->expects($this->exactly(2))
+            ->method('foreignId')
+            ->with(
+                ...self::withConsecutive(
+                    ['created_by'],
+                    ['updated_by']
+                )
+            )
+            ->willReturn($this->fluentMock)
+        ;
+
+        $this->blueprint->blamable('');
     }
 }
