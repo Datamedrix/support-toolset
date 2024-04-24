@@ -4,6 +4,13 @@ declare(strict_types=1);
 
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
+use Illuminate\Database\Eloquent\Model as EloquentModel;
+
+/**
+ * Trait CanBeFilledByArray.
+ *
+ * @mixin EloquentModel
+ */
 trait CanBeFilledByArray
 {
     /**
@@ -15,7 +22,7 @@ trait CanBeFilledByArray
      * @param array       $data
      * @param string|null $prefix (optional) The prefix for the array-key name to get the attribute values.
      *
-     * @return static
+     * @return $this|EloquentModel
      */
     public function fillFromArray(array $data, ?string $prefix = null): self
     {

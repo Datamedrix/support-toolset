@@ -5,25 +5,43 @@ declare(strict_types=1);
 namespace DMX\Support\Database\Eloquent\Models\Concerns;
 
 use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Concerns\HasAttributes;
+use Illuminate\Database\Eloquent\Model as EloquentModel;
 
 /**
  * Trait HasSnakeCaseAttributes.
+ * When using this trait, the model is marked as having snake_case attributes and will automatically convert camelCase
+ * or PascalCase attribute names to snake_case.
  *
- * @codeCoverageIgnore
+ * Example:
+ * ```php
+ * $myAwesomeModel->first_name = 'John';
+ * $myAwesomeModel->firstName = 'John';
+ * $myAwesomeModel->setAttribute('fist_name', 'John');
+ * $myAwesomeModel->setAttribute('fistName', 'John');
+ * // all of the above will set the attribute 'first_name' to 'John'
+ *
+ * echo $myAwesomeModel->first_name;
+ * echo $myAwesomeModel->firstName;
+ * echo $myAwesomeModel->getAttribute('fist_name');
+ * echo $myAwesomeModel->getAttribute('fistName');
+ * // all of the above will return 'John'
+ * ```
+ *
+ * @mixin EloquentModel
+ *
+ * @uses \Illuminate\Database\Eloquent\Concerns\HasAttributes
  */
 trait HasSnakeCaseAttributes
 {
-    use HasAttributes;
-
     /**
-     * Get an attribute from the model incl. snake case notation support.
+     * Get an attribute from the model incl. camelCase and PascalCase notation support.
+     * The key will attempt to be converted to snake_case if it does not exist in the attributes or casts.
      *
      * @param string $key
      *
      * @return mixed
      */
-    public function getAttribute($key)
+    public function getAttribute($key): mixed
     {
         if (empty($key)) {
             return null;
@@ -44,14 +62,15 @@ trait HasSnakeCaseAttributes
     }
 
     /**
-     * Set a given attribute on the model incl. snake case notation support.
+     * Set a given attribute on the model incl. incl. camelCase and PascalCase notation support.
+     * The key will attempt to be converted to snake_case if it does not exist in the attributes list before.
      *
      * @param string $key
      * @param mixed  $value
      *
      * @return $this
      */
-    public function setAttribute($key, $value)
+    public function setAttribute($key, $value): self
     {
         // check if there is a non snake_case attribute and uses it instead
         if (array_key_exists($key, $this->attributes ?? [])) {
