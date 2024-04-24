@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+### [7.0.1](https://github.com/Datamedrix/support-toolset/compare/v7.0.0...v7.0.1) (2024-04-24)
+
+### Bug Fixes
+
+* **eloquent/models/concerns:** Define the same property ($casts, $attributes) in `HasSnakeCaseAttributes`! ([a959e86](https://github.com/Datamedrix/support-toolset/commit/a959e8655b0898c296928d21b11907d4d4e1590b))
+
 ## [7.0.0](https://github.com/Datamedrix/support-toolset/compare/v6.1.0...v7.0.0) (2024-04-16)
 
 ### BREAKING CHANGES:
