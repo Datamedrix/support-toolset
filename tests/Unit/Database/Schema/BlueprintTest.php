@@ -76,7 +76,35 @@ class BlueprintTest extends ATestCase
             ->method('__call')
             ->with(
                 ...self::withConsecutive(
+                    ['index'],
+                    ['charset'],
                     ['unique'],
+                )
+            )
+            ->willReturnSelf()
+        ;
+
+        $this->blueprint->uuid($dummyColumnName);
+    }
+
+    /**
+     * Test.
+     */
+    public function testMethodUuidNotUnique()
+    {
+        $dummyColumnName = 'col_' . rand(100, 999);
+        $this->blueprint
+            ->expects($this->once())
+            ->method('addColumn')
+            ->with('uuid', $dummyColumnName)
+            ->willReturn($this->fluentMock)
+        ;
+
+        $this->fluentMock
+            ->expects($this->exactly(2))
+            ->method('__call')
+            ->with(
+                ...self::withConsecutive(
                     ['index'],
                     ['charset']
                 )
@@ -84,7 +112,7 @@ class BlueprintTest extends ATestCase
             ->willReturnSelf()
         ;
 
-        $this->blueprint->uuid($dummyColumnName);
+        $this->blueprint->uuid($dummyColumnName, false);
     }
 
     /**

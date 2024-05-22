@@ -184,10 +184,25 @@ class Blueprint extends BaseBlueprint
     }
 
     /**
-     * {@inheritdoc}
+     * Create a new UUID column on the table.
+     *
+     * @param string      $column
+     * @param bool        $unique
+     * @param string|null $indexName
+     * @param string|null $uniqueIndexName
+     *
+     * @return Fluent
      */
-    public function uuid($column = 'uuid'): Fluent
+    public function uuid($column = 'uuid', bool $unique = true, ?string $indexName = null, ?string $uniqueIndexName = null): Fluent
     {
-        return parent::uuid((string) $column)->unique()->index()->charset('ascii');
+        $columnDefinition = parent::uuid((string) $column)
+            ->index($indexName)
+            ->charset('ascii')
+        ;
+        if ($unique === true) {
+            return $columnDefinition->unique($uniqueIndexName);
+        }
+
+        return $columnDefinition;
     }
 }
