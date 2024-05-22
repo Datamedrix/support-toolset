@@ -195,12 +195,23 @@ class Blueprint extends BaseBlueprint
      */
     public function uuid($column = 'uuid', bool $unique = true, ?string $indexName = null, ?string $uniqueIndexName = null): Fluent
     {
-        $columnDefinition = parent::uuid((string) $column)
-            ->index($indexName)
-            ->charset('ascii')
-        ;
+        if (!empty($indexName)) {
+            $columnDefinition = parent::uuid((string) $column)
+                ->index($indexName)
+            ;
+        } else {
+            $columnDefinition = parent::uuid((string) $column)
+                ->index()
+            ;
+        }
+        $columnDefinition->charset('ascii');
+
         if ($unique === true) {
-            return $columnDefinition->unique($uniqueIndexName);
+            if (!empty($uniqueIndexName)) {
+                $columnDefinition->unique($uniqueIndexName);
+            } else {
+                $columnDefinition->unique();
+            }
         }
 
         return $columnDefinition;
