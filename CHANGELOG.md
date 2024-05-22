@@ -2,7 +2,13 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
-### [7.0.1](https://github.com/Datamedrix/support-toolset/compare/v7.0.0...v7.0.1) (2024-04-24)
+## [7.0.2](https://github.com/Datamedrix/support-toolset/compare/v7.0.1...v7.0.2) (2024-05-22)
+
+### Enhancements
+
+* **database/schema:** Add switch to `uuid` blueprint function to be able to define an uuid column as non-unique. ([4db4a5d6](https://github.com/Datamedrix/support-toolset/commit/4db4a5d623ef6f226b3bfda87778d1c0b4ef3f6c))
+
+## [7.0.1](https://github.com/Datamedrix/support-toolset/compare/v7.0.0...v7.0.1) (2024-04-24)
 
 ### Bug Fixes
 
@@ -33,7 +39,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * Migrate to PHP v8.2. ([a1b15d5](https://github.com/Datamedrix/support-toolset/commit/a1b15d51d8b80a8de7107e6d5182699a6fb4c054))
 
-### [5.2.1](https://github.com/Datamedrix/support-toolset/compare/v5.2.0...v5.2.1) (2022-08-29)
+## [5.2.1](https://github.com/Datamedrix/support-toolset/compare/v5.2.0...v5.2.1) (2022-08-29)
 
 ### Bug Fixes
 
@@ -45,7 +51,7 @@ All notable changes to this project will be documented in this file. See [standa
 
 * **database/schema/blueprint:** Add column "original_import_id" if the option "inclImportedBy" is set to true using the userAudit functions. ([7b5513f](https://github.com/Datamedrix/support-toolset/commit/7b5513febc42f881f29d809b03fe54a75e1cee5a))
 
-### [5.1.1](https://github.com/Datamedrix/support-toolset/compare/v5.1.0...v5.1.1) (2022-07-26)
+## [5.1.1](https://github.com/Datamedrix/support-toolset/compare/v5.1.0...v5.1.1) (2022-07-26)
 
 ### Bug Fixes
 
@@ -66,7 +72,7 @@ or
 $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 ```
 
-### [5.0.1](https://github.com/Datamedrix/support-toolset/compare/v5.0.0...v5.0.1) (2022-06-10)
+## [5.0.1](https://github.com/Datamedrix/support-toolset/compare/v5.0.0...v5.0.1) (2022-06-10)
 
 ### Bug Fixes
 
@@ -86,7 +92,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
   * **old:** `userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $referenceRestrictions = ['onUpdate' => 'no action', 'onDelete' => 'no action']): void`
   * **new:** `userAuditInclTimestamps(string $referencedTo = 'users', int $precision = 0, array $options = []): void`
 
-### [4.3.1](https://github.com/Datamedrix/support-toolset/compare/v4.3.0...v4.3.1) (2021-07-21)
+## [4.3.1](https://github.com/Datamedrix/support-toolset/compare/v4.3.0...v4.3.1) (2021-07-21)
 
 ### Bug Fixes
 
@@ -98,7 +104,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **database/blueprint:** Make the user audit reference restrictions configurable. ([0832864](https://github.com/Datamedrix/support-toolset/commit/0832864fff2eb8ace336fc58f0fdf4afc74af2cf))
 
-### [4.2.1](https://github.com/Datamedrix/support-toolset/compare/v4.2.0...v4.2.1) (2021-07-16)
+## [4.2.1](https://github.com/Datamedrix/support-toolset/compare/v4.2.0...v4.2.1) (2021-07-16)
 
 ### Bug Fixes
 
@@ -116,7 +122,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **eloquent:** Use optional schemas also with MSSQL databases. ([71de35d](https://github.com/Datamedrix/support-toolset/commit/71de35d13fd9926adad64eca36f7016026aa1cb2))
 
-### [4.0.1](https://github.com/Datamedrix/support-toolset/compare/v4.0.0...v4.0.1) (2021-07-06)
+## [4.0.1](https://github.com/Datamedrix/support-toolset/compare/v4.0.0...v4.0.1) (2021-07-06)
 
 ### Bug Fixes
 
@@ -139,7 +145,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **eloquent/models:** Enhance the HasSnakeCaseAttributes trait. ([f0b8080](https://github.com/Datamedrix/support-toolset/commit/f0b8080b4f9d227be72cd714bfb647fab9c9ae2b))
 
-# [3.3.0](https://github.com/Datamedrix/support-toolset/compare/v3.2.1...v3.3.0) (2020-10-29)
+## [3.3.0](https://github.com/Datamedrix/support-toolset/compare/v3.2.1...v3.3.0) (2020-10-29)
 
 ### Features
 
@@ -152,23 +158,23 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **model/concerns/DbSchema:** Do not add the db schema twice to the table name! ([3471869](https://github.com/Datamedrix/support-toolset/commit/3471869))
 
-# [3.2.0](https://github.com/Datamedrix/support-toolset/compare/v3.1.0...v3.2.0) (2020-01-21)
+## [3.2.0](https://github.com/Datamedrix/support-toolset/compare/v3.1.0...v3.2.0) (2020-01-21)
 
 ### Features
 
 * **eloquent:** Add optional schema name to table name if the database engine does not support db-schemas. ([45d1581](https://github.com/Datamedrix/support-toolset/commit/45d1581))
 
-# [3.1.0](https://github.com/Datamedrix/support-toolset/compare/v3.0.0...v3.1.0) (2020-01-17)
+## [3.1.0](https://github.com/Datamedrix/support-toolset/compare/v3.0.0...v3.1.0) (2020-01-17)
 
 ### Features
 
 * **database/schema:** Enhance the blueprint and provide methods to columns used for user audit. ([96cc4d5](https://github.com/Datamedrix/support-toolset/commit/96cc4d5))
 
-# [3.0.0](https://github.com/Datamedrix/support-toolset/compare/v2.3.0...v3.0.0) (2020-01-17)
+## [3.0.0](https://github.com/Datamedrix/support-toolset/compare/v2.3.0...v3.0.0) (2020-01-17)
 
 * **\*:** Move the package to PHP 7.4.
 
-# [2.3.0](https://github.com/Datamedrix/support-toolset/compare/v2.2.1...v2.3.0) (2019-10-31)
+## [2.3.0](https://github.com/Datamedrix/support-toolset/compare/v2.2.1...v2.3.0) (2019-10-31)
 
 ### Features
 
@@ -180,7 +186,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **database/migrations:** Throw the exception correctly only if no database manager is set and no Laravel helper functions are available. ([74010d5](https://github.com/Datamedrix/support-toolset/commit/74010d5))
 
-# [2.2.0](https://github.com/Datamedrix/support-toolset/compare/v2.1.1...v2.2.0) (2019-10-30)
+## [2.2.0](https://github.com/Datamedrix/support-toolset/compare/v2.1.1...v2.2.0) (2019-10-30)
 
 ### Features
 
@@ -192,38 +198,37 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **database:** Remove misplaced migration and blueprint classes. ([05d6d64](https://github.com/Datamedrix/support-toolset/commit/05d6d64))
 
-# [2.1.0](https://github.com/Datamedrix/support-toolset/compare/v2.0.0...v2.1.0) (2019-10-25)
+## [2.1.0](https://github.com/Datamedrix/support-toolset/compare/v2.0.0...v2.1.0) (2019-10-25)
 
 ### Features
 
 * **database:** Add lightly adopted (Laravel)migration base class and (Laravel)blueprint. ([f57443e](https://github.com/Datamedrix/support-toolset/commit/f57443e))
 
-# 2.0.0 (2019-09-09)
+## 2.0.0 (2019-09-09)
 
 ### Features
 
 * **\*:** Move package to support laravel 6.0.
 
-# 1.1.3 (2019-09-09)
+## 1.1.3 (2019-09-09)
 
 ### Fixes
 
 * **\*:** Remove support for laravel 6.0, cause of an deprecated function issue.
 
-# 1.1.2 (2019-09-09)
+## 1.1.2 (2019-09-09)
 
 ### Chore
 
 * **\*:** Dependencies updated to support laravel 6.0.
 
-# 1.1.1 (2019-06-06)
+## 1.1.1 (2019-06-06)
 
 ### Fixes
 
 * **traits:** Check for an potentially existing method defined within the model before snake case the designated attribute (`getAttribute()`).
 
-<a name="1.1.0"></a>
-# 1.1.0 (2018-09-10)
+## 1.1.0 (2018-09-10)
 
 ### Features
 
@@ -237,8 +242,7 @@ $table->userAuditInclTimestamps('users', 0, ['inclImportedBy' => true]);
 
 * **traits:** rename ProvidesIdentifierTrait to ProvidesIdentifier
 
-<a name="1.0.0"></a>
-# 1.0.0 (2018-06-21)
+## 1.0.0 (2018-06-21)
 
 ### Features
 
