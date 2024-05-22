@@ -2,6 +2,12 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [7.0.3](https://github.com/Datamedrix/support-toolset/compare/v7.0.2...v7.0.3) (2024-05-22)
+
+### Bug Fixes
+
+* **database/schema:** Unable to define the index name for uuid columns. ([4926c96](https://github.com/Datamedrix/support-toolset/commit/4926c96db63ea81c80da9097dbc4761596af26ab))
+
 ## [7.0.2](https://github.com/Datamedrix/support-toolset/compare/v7.0.1...v7.0.2) (2024-05-22)
 
 ### Enhancements
